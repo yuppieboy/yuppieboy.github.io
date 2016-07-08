@@ -316,7 +316,7 @@
             <p>内网部署<code>nginx</code>，直接挂上2g多的zip包，<code>iOS</code>下载正常，将zip包挂到公司服务器，下载到49.1%（差不多1.07G）就中断链接，于是就各种猜测原因。</p>
 <ul>
 <li><p>文件下载代码写的有问题？</p>
-<p>  <code>NSURLSessionDownload</code>,<code>NSURLConnection</code>,<code>AFN</code>换了个遍都一样,虽然没有找到原因，但是发现<code>NSURLSessionDownload</code>下载时占用内存比<code>NSURLConnection</code>少一半多。</p>
+<p>  <code>NSURLSessionDownload</code>,<code>NSURLConnection</code>,<code>AFN</code>换了个遍都一样,虽然没有找到原因，但是发现<code>NSURLSessionDownload</code>下载时占用内存比<code>NSURLConnection</code>少，机制更优。</p>
 </li>
 <li><p>服务器的问题？</p>
 <p>  安卓可以正常下载，<code>windows</code>浏览器可以正常下载，<code>safari</code>下载到49.1%同样网络中断？what？开始抓包，发现没有异常，只有<code>nginx</code>版本不一样，后来发现公司服务器用了<code>反向代理</code>。</p>
