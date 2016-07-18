@@ -400,11 +400,11 @@
 *  @param group   在该group里删除联系人
 */
 - (void)deleteMemberWithContact:(CNContact *)contact toGroup:(CNGroup *)group{
-CNSaveRequest *saveRequest = [[CNSaveRequest alloc] init];
-[saveRequest removeMember:contact fromGroup:group];
-// 写入
-CNContactStore *store = [[CNContactStore alloc] init];
-[store executeSaveRequest:saveRequest error:nil];
+    CNSaveRequest *saveRequest = [[CNSaveRequest alloc] init];
+    [saveRequest removeMember:contact fromGroup:group];
+    // 写入
+    CNContactStore *store = [[CNContactStore alloc] init];
+    [store executeSaveRequest:saveRequest error:nil];
 
 }
 

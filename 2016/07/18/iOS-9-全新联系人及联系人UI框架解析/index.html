@@ -98,7 +98,7 @@ Contact框架的使用
 CNContact基本属性
 
 /*">
-<meta property="og:updated_time" content="2016-07-18T02:11:42.000Z">
+<meta property="og:updated_time" content="2016-07-18T02:14:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS 9 全新联系人及联系人UI框架解析">
 <meta name="twitter:description" content="引言在以前iOS开发中，涉及联系人相关的编程，代码都非常繁琐，并且框架的设计也不是Objective-C风格的，这使开发者用起来非常的难受。在iOS9中，apple终于解决了这个问题，全新的Contacts Framework将完全替代AddressBookFramework，AddressBookFramework也将成为历史被弃用。
@@ -406,11 +406,11 @@ CNContact基本属性
 *  @param group   在该group里删除联系人
 */
 - (void)deleteMemberWithContact:(CNContact *)contact toGroup:(CNGroup *)group{
-CNSaveRequest *saveRequest = [[CNSaveRequest alloc] init];
-[saveRequest removeMember:contact fromGroup:group];
-// 写入
-CNContactStore *store = [[CNContactStore alloc] init];
-[store executeSaveRequest:saveRequest error:nil];
+    CNSaveRequest *saveRequest = [[CNSaveRequest alloc] init];
+    [saveRequest removeMember:contact fromGroup:group];
+    // 写入
+    CNContactStore *store = [[CNContactStore alloc] init];
+    [store executeSaveRequest:saveRequest error:nil];
 
 }
 
