@@ -318,10 +318,10 @@
 <p>CNContact基本属性</p>
 </blockquote>
 <pre><code>/**
-  *  设置联系人的基本属性
-  *
-  *  @return 返回联系人的对象
-  */
+ *  设置联系人的基本属性
+ *
+ *  @return 返回联系人的对象
+ */
 - (CNMutableContact *)initializeContact{
     // 创建联系人对象
     CNMutableContact *contact = [[CNMutableContact alloc] init];
@@ -394,11 +394,11 @@
 <p>CNSaveRequest的封装使用</p>
 </blockquote>
 <pre><code>/**
-  *  在group里删除成员
-  *
-  *  @param contact 被删除的联系人
-  *  @param group   在该group里删除联系人
-  */
+ *  在group里删除成员
+ *
+ *  @param contact 被删除的联系人
+ *  @param group   在该group里删除联系人
+ */
 - (void)deleteMemberWithContact:(CNContact *)contact toGroup:(CNGroup *)group{
     CNSaveRequest *saveRequest = [[CNSaveRequest alloc] init];
     [saveRequest removeMember:contact fromGroup:group];
@@ -409,11 +409,11 @@
 }
 
 /**
-  *  向group添加成员
-  *
-  *  @param contact 被添加的联系人
-  *  @param group   添加到该group
-  */
+ *  向group添加成员
+ *
+ *  @param contact 被添加的联系人
+ *  @param group   添加到该group
+ */
 - (void)addMemberWithContact:(CNContact *)contact toGroup:(CNGroup *)group{
     CNSaveRequest *saveRequest = [[CNSaveRequest alloc] init];
     [saveRequest addMember:contact toGroup:group];
@@ -424,10 +424,10 @@
 }
 
 /**
-  *  更新group
-  *
-  *  @param group 被更新的group
-  */
+ *  更新group
+ *
+ *  @param group 被更新的group
+ */
 - (void)updateGroup:(CNMutableGroup *)group{
     CNSaveRequest *saveRequest = [[CNSaveRequest alloc] init];
     [saveRequest updateGroup:group];
@@ -437,10 +437,10 @@
 }
 
 /**
-  *  删除group操作
-  *
-  *  @param group 被删除的group
-  */
+ *  删除group操作
+ *
+ *  @param group 被删除的group
+ */
 - (void)deleteWithGroup:(CNMutableGroup *)group{
     CNSaveRequest *saveRequest = [[CNSaveRequest alloc] init];
     [saveRequest deleteGroup:group];
@@ -450,10 +450,10 @@
 }
 
 /**
-  *  查询
-  *
-  *  @return 返回数组
-  */
+ *  查询
+ *
+ *  @return 返回数组
+ */
 - (NSArray *)queryGroup{
     CNContactStore *store = [[CNContactStore alloc] init];
     // 查询所有的group(predicate参数为空时会查询所有的group)
@@ -462,10 +462,10 @@
 }
 
 /**
-  *  添加群组
-  *
-  *  @param name 群组的名称
-  */
+ *  添加群组
+ *
+ *  @param name 群组的名称
+ */
 - (void)addGroupWithName:(NSString *)name{
     CNMutableGroup *group = [[CNMutableGroup alloc] init];
     group.name = name;
@@ -477,10 +477,10 @@
 }
 
 /**
-  *  查询操作
-  *
-  *  @return 返回数组
-  */
+ *  查询操作
+ *
+ *  @return 返回数组
+ */
 - (NSArray *)queryContactWithName:(NSString *)name{
     CNContactStore *store = [[CNContactStore alloc] init];
     // 检索条件
@@ -491,10 +491,10 @@
 }
 
 /**
-  *  更新联系人
-  *
-  *  @param contact 被更新的联系人
-  */
+ *  更新联系人
+ *
+ *  @param contact 被更新的联系人
+ */
 - (void)updateContact:(CNMutableContact *)contact{
 // 创建联系人请求
     CNSaveRequest *saveRequest = [[CNSaveRequest alloc] init];
@@ -506,10 +506,10 @@
 }
 
 /**
-  *  删除联系人
-  *
-  *  @param contact 被删除的联系人
-  */
+ *  删除联系人
+ *
+ *  @param contact 被删除的联系人
+ */
 - (void)deleteContact:(CNMutableContact *)contact{
     // 创建联系人请求
     CNSaveRequest *saveRequest = [[CNSaveRequest alloc] init];
@@ -521,10 +521,10 @@
 }
 
 /**
-  *  添加联系人
-  *
-  *  @param contact 联系人
-  */
+ *  添加联系人
+ *
+ *  @param contact 联系人
+ */
 - (void)addContact:(CNMutableContact *)contact{
     // 创建联系人请求
     CNSaveRequest *saveRequest = [[CNSaveRequest alloc] init];
