@@ -98,7 +98,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/yuppieboy/yuppieboy.github.io/master/images/9EFD007C-5006-436A-ABD1-50EEF4759818.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/yuppieboy/yuppieboy.github.io/master/images/016705F3-C687-414C-80F6-E502E3F3F106.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/yuppieboy/yuppieboy.github.io/master/images/0C979DBC-5501-421F-B349-0180449D2474.png">
-<meta property="og:updated_time" content="2016-07-20T06:41:44.000Z">
+<meta property="og:updated_time" content="2016-07-20T06:47:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Xcode打包.a静态库step by step">
 <meta name="twitter:description" content="库介绍库从本质上来说是一种可执行代码的二进制格式，可以被载入内存中执行。库分静态库和动态库两种。iOS中的静态库有 .a 和 .framework两种形式；动态库有.dylib 和 .framework 形式，后来.dylib动态库又被苹果替换成.tbd的形式。
@@ -344,7 +344,7 @@
 <p>如果想要通用需要将模拟器使用的静态库与真机使用的静态库合并成一个静态库，可以使用终端命令来实现。命令格式：<br>lipo -create 第一个.a文件的绝对路径 第二个.a文件的绝对路径 -output 最终的.a文件路径。<br>本文中使用的命令如下：</p>
 <pre><code>lipo -create /Users/paul/Library/Developer/Xcode/DerivedData/Tool-fcimdkyxyorzxoafjvdaenioayfh/Build/Products/Release-iphoneos/libTool.a /Users/paul/Library/Developer/Xcode/DerivedData/Tool-fcimdkyxyorzxoafjvdaenioayfh/Build/Products/Release-iphonesimulator/libTool.a -output /Users/paul/Desktop/libTool.a
 </code></pre><blockquote>
-<p>补充：经过多次实践，第三步的操作省略，依然可以导出可正常使用的包。<br>如果静态库中有category类，则在使用静态库的项目配置中【Other Linker Flags】需要添加参数【-ObjC]或者【-all_load】。</p>
+<p>补充：经过多次实践，第三步的操作省略，依然可以导出可正常使用的包。<br>如果静态库中有category类，则在使用静态库的项目配置中【Other Linker Flags】需要添加参数【-ObjC】或者【-all_load】。</p>
 </blockquote>
 <p>最后，将生成的.a文件以及相应include文件引入即可使用。</p>
 
