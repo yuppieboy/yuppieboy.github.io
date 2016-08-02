@@ -243,6 +243,137 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/02/从git-reset-hard中拯救代码/" itemprop="url">
+                  从git reset --hard中拯救代码
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-02T13:46:24+08:00" content="2016-08-02">
+              2016-08-02
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/02/从git-reset-hard中拯救代码/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/08/02/从git-reset-hard中拯救代码/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>如果<code>git add .</code>后还未<code>commit</code>输入了<code>git reset --hard</code>,会发现缓存区和本地都没有了这些改动的纪录，因为用了<code>--hard</code>。</p>
+<h2 id="挽救"><a href="#挽救" class="headerlink" title="挽救"></a>挽救</h2><p>由于每次git命令进行操作时git都会对相关文件进行快照,并通过一定形式把信息保存再<code>.git/</code>目录下。</p>
+<p>由于此前我使用过<code>git add .</code>命令,因此当文件被放进暂存区时,快照信息对象就已经保存了，而实用<code>git reset --hard</code>之后,这些对象就变成了悬空文件对象(<code>dangling blob</code>)。</p>
+<p>我们可以实用<code>git fsck</code>命令显示他们</p>
+<p><a href="https://git-scm.com/docs/git-fsck" target="_blank" rel="external">git fsck</a>：用于验证当前git仓库数据的有效性和一致性，能够显示那些”丢失”的<code>commit</code>、<code>blob(文件)</code>、<code>tree</code>等。</p>
+<p>我们可以通过以下命令</p>
+<pre><code>git fsck --cache --unreachable $(git for-each-ref --format=&quot;%(objectname)&quot;)
+</code></pre><p>我们得到一大堆blob的hash ID</p>
+<pre><code>unreachable blob 907b308167f0880fb2a5c0e1614bb0c7620f9dc3
+unreachable blob 72663d3adcf67548b9e0f0b2eeef62bce3d53e03
+...
+</code></pre><p>接下来使用git show就能显示这些对象的内容了，例如git show 907b308</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/01/疲民之术-转载/" itemprop="url">
                   疲民之术[转载]
                 </a>
@@ -1463,7 +1594,7 @@ proxy_cache cache_one;
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-count">8</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1480,7 +1611,7 @@ proxy_cache cache_one;
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

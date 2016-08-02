@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="nginx," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -84,25 +84,15 @@
 
 
 
-<meta name="description" content="内网部署nginx，直接挂上2g多的zip包，iOS下载正常，将zip包挂到公司服务器，下载到49.1%（差不多1.07G）就中断链接，于是就各种猜测原因。
-
-文件下载代码写的有问题？
-  NSURLSessionDownload,NSURLConnection,AFN换了个遍都一样,虽然没有找到原因，但是发现NSURLSessionDownload下载时占用内存比NSURLConnection少">
-<meta property="og:type" content="article">
-<meta property="og:title" content="iOS大文件下载遇上nginx反向代理">
-<meta property="og:url" content="http://yoursite.com/2016/07/08/iOS大文件下载遇上nginx反向代理/index.html">
+<meta name="description" content="iOS Developer">
+<meta property="og:type" content="website">
+<meta property="og:title" content="WJ's Den">
+<meta property="og:url" content="http://yoursite.com/tags/Git/index.html">
 <meta property="og:site_name" content="WJ's Den">
-<meta property="og:description" content="内网部署nginx，直接挂上2g多的zip包，iOS下载正常，将zip包挂到公司服务器，下载到49.1%（差不多1.07G）就中断链接，于是就各种猜测原因。
-
-文件下载代码写的有问题？
-  NSURLSessionDownload,NSURLConnection,AFN换了个遍都一样,虽然没有找到原因，但是发现NSURLSessionDownload下载时占用内存比NSURLConnection少">
-<meta property="og:updated_time" content="2016-07-27T06:59:36.000Z">
+<meta property="og:description" content="iOS Developer">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS大文件下载遇上nginx反向代理">
-<meta name="twitter:description" content="内网部署nginx，直接挂上2g多的zip包，iOS下载正常，将zip包挂到公司服务器，下载到49.1%（差不多1.07G）就中断链接，于是就各种猜测原因。
-
-文件下载代码写的有问题？
-  NSURLSessionDownload,NSURLConnection,AFN换了个遍都一样,虽然没有找到原因，但是发现NSURLSessionDownload下载时占用内存比NSURLConnection少">
+<meta name="twitter:title" content="WJ's Den">
+<meta name="twitter:description" content="iOS Developer">
 
 
 
@@ -120,7 +110,7 @@
   };
 </script>
 
-  <title> iOS大文件下载遇上nginx反向代理 | WJ's Den </title>
+  <title> 标签: Git | WJ's Den </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -141,7 +131,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -229,175 +219,46 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                iOS大文件下载遇上nginx反向代理
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-08T10:44:15+08:00" content="2016-07-08">
-              2016-07-08
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/08/iOS大文件下载遇上nginx反向代理/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/08/iOS大文件下载遇上nginx反向代理/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p>内网部署<code>nginx</code>，直接挂上2g多的zip包，<code>iOS</code>下载正常，将zip包挂到公司服务器，下载到49.1%（差不多1.07G）就中断链接，于是就各种猜测原因。</p>
-<ul>
-<li><p>文件下载代码写的有问题？</p>
-<p>  <code>NSURLSessionDownload</code>,<code>NSURLConnection</code>,<code>AFN</code>换了个遍都一样,虽然没有找到原因，但是发现<code>NSURLSessionDownload</code>下载时占用内存比<code>NSURLConnection</code>少，机制更优。</p>
-</li>
-<li><p>服务器的问题？</p>
-<p>  安卓可以正常下载，<code>windows</code>浏览器可以正常下载，<code>safari</code>下载到49.1%同样网络中断？what？开始抓包，发现没有异常，只有<code>nginx</code>版本不一样，后来发现公司服务器用了<code>反向代理</code>。</p>
-<p>  google后尝试写改配置<code>nginx.conf</code>，关闭buffer，<code>proxy_buffering off</code>，可以正常下载了。再尝试开启buffer，然后配置相关参数，也能正常下载，下载的速度和配置的参数有关系，配置参考如下:</p>
-<pre><code>proxy_cache参数配置文件/usr/local/nginx/conf/proxy.conf
-
-proxy_temp_path /home/proxy_temp_dir; 
-proxy_cache_path /home/proxy_cache_dir levels=1:2 keys_zone=cache_one:500m inactive=1d max_size=30g; 
-client_body_buffer_size 512k; 
-proxy_connect_timeout 60; 
-proxy_read_timeout 60; 
-proxy_send_timeout 60; 
-proxy_buffer_size 32k; 
-proxy_buffers 4 64k; 
-proxy_busy_buffers_size 128k; 
-proxy_temp_file_write_size 128k; 
-proxy_next_upstream error timeout invalid_header http_500 http_503 http_404; 
-proxy_cache cache_one; 
-</code></pre></li>
-</ul>
-<p>至此事情告一段落。</p>
-
-      
+  <div id="posts" class="posts-collapse">
+    <div class="collection-title">
+      <h2 >
+        Git
+        <small>标签</small>
+      </h2>
     </div>
 
-    <div>
+    
       
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
         
-      
-    </div>
-
-    <div>
-      
+            <a class="post-title-link" href="/2016/08/02/从git-reset-hard中拯救代码/" itemprop="url">
+              
+                <span itemprop="name">从git reset --hard中拯救代码</span>
+              
+            </a>
         
+      </h1>
 
-      
-    </div>
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2016-08-02T13:46:24+08:00"
+              content="2016-08-02" >
+          08-02
+        </time>
+      </div>
 
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/nginx/" rel="tag">#nginx</a>
-          
-        </div>
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/05/24/Start-NexT/" rel="next" title="Start NexT">
-                <i class="fa fa-chevron-left"></i> Start NexT
-              </a>
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/12/利用CAShaperLayer绘制气泡/" rel="prev" title="利用CAShaperLayer绘制气泡">
-                利用CAShaperLayer绘制气泡 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
+    </header>
   </article>
 
 
-
-    <div class="post-spread">
-      
-    </div>
+    
   </div>
+
+  
 
 
           </div>
@@ -405,17 +266,6 @@ proxy_cache cache_one;
 
 
           
-  <div class="comments" id="comments">
-    
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    
-  </div>
-
 
         </div>
         
@@ -435,17 +285,8 @@ proxy_cache cache_one;
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -515,17 +356,6 @@ proxy_cache cache_one;
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <p class="post-toc-empty">此文章未包含目录</p>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -622,10 +452,6 @@ proxy_cache cache_one;
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
-
-
 
   
 
@@ -642,9 +468,9 @@ proxy_cache cache_one;
 
     <script type="text/javascript">
       var disqus_shortname = 'yuppieboy';
-      var disqus_identifier = '2016/07/08/iOS大文件下载遇上nginx反向代理/';
-      var disqus_title = 'iOS大文件下载遇上nginx反向代理';
-      var disqus_url = 'http://yoursite.com/2016/07/08/iOS大文件下载遇上nginx反向代理/';
+      var disqus_identifier = 'tags/Git/index.html';
+      var disqus_title = '';
+      var disqus_url = '';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
@@ -655,8 +481,6 @@ proxy_cache cache_one;
       }
 
       run_disqus_script('count.js');
-      
-        run_disqus_script('embed.js');
       
     </script>
   

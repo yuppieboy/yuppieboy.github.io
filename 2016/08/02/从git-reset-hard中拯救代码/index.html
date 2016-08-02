@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="nginx," />
+  <meta name="keywords" content="Git," />
 
 
 
@@ -84,25 +84,22 @@
 
 
 
-<meta name="description" content="内网部署nginx，直接挂上2g多的zip包，iOS下载正常，将zip包挂到公司服务器，下载到49.1%（差不多1.07G）就中断链接，于是就各种猜测原因。
-
-文件下载代码写的有问题？
-  NSURLSessionDownload,NSURLConnection,AFN换了个遍都一样,虽然没有找到原因，但是发现NSURLSessionDownload下载时占用内存比NSURLConnection少">
+<meta name="description" content="场景如果git add .后还未commit输入了git reset --hard,会发现缓存区和本地都没有了这些改动的纪录，因为用了--hard。
+挽救由于每次git命令进行操作时git都会对相关文件进行快照,并通过一定形式把信息保存再.git/目录下。
+由于此前我使用过git add .命令,因此当文件被放进暂存区时,快照信息对象就已经保存了，而实用git reset --hard之后,这些对">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS大文件下载遇上nginx反向代理">
-<meta property="og:url" content="http://yoursite.com/2016/07/08/iOS大文件下载遇上nginx反向代理/index.html">
+<meta property="og:title" content="从git reset --hard中拯救代码">
+<meta property="og:url" content="http://yoursite.com/2016/08/02/从git-reset-hard中拯救代码/index.html">
 <meta property="og:site_name" content="WJ's Den">
-<meta property="og:description" content="内网部署nginx，直接挂上2g多的zip包，iOS下载正常，将zip包挂到公司服务器，下载到49.1%（差不多1.07G）就中断链接，于是就各种猜测原因。
-
-文件下载代码写的有问题？
-  NSURLSessionDownload,NSURLConnection,AFN换了个遍都一样,虽然没有找到原因，但是发现NSURLSessionDownload下载时占用内存比NSURLConnection少">
-<meta property="og:updated_time" content="2016-07-27T06:59:36.000Z">
+<meta property="og:description" content="场景如果git add .后还未commit输入了git reset --hard,会发现缓存区和本地都没有了这些改动的纪录，因为用了--hard。
+挽救由于每次git命令进行操作时git都会对相关文件进行快照,并通过一定形式把信息保存再.git/目录下。
+由于此前我使用过git add .命令,因此当文件被放进暂存区时,快照信息对象就已经保存了，而实用git reset --hard之后,这些对">
+<meta property="og:updated_time" content="2016-08-02T06:46:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS大文件下载遇上nginx反向代理">
-<meta name="twitter:description" content="内网部署nginx，直接挂上2g多的zip包，iOS下载正常，将zip包挂到公司服务器，下载到49.1%（差不多1.07G）就中断链接，于是就各种猜测原因。
-
-文件下载代码写的有问题？
-  NSURLSessionDownload,NSURLConnection,AFN换了个遍都一样,虽然没有找到原因，但是发现NSURLSessionDownload下载时占用内存比NSURLConnection少">
+<meta name="twitter:title" content="从git reset --hard中拯救代码">
+<meta name="twitter:description" content="场景如果git add .后还未commit输入了git reset --hard,会发现缓存区和本地都没有了这些改动的纪录，因为用了--hard。
+挽救由于每次git命令进行操作时git都会对相关文件进行快照,并通过一定形式把信息保存再.git/目录下。
+由于此前我使用过git add .命令,因此当文件被放进暂存区时,快照信息对象就已经保存了，而实用git reset --hard之后,这些对">
 
 
 
@@ -120,7 +117,7 @@
   };
 </script>
 
-  <title> iOS大文件下载遇上nginx反向代理 | WJ's Den </title>
+  <title> 从git reset --hard中拯救代码 | WJ's Den </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -250,7 +247,7 @@
             
             
               
-                iOS大文件下载遇上nginx反向代理
+                从git reset --hard中拯救代码
               
             
           </h1>
@@ -262,8 +259,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-08T10:44:15+08:00" content="2016-07-08">
-              2016-07-08
+            <time itemprop="dateCreated" datetime="2016-08-02T13:46:24+08:00" content="2016-08-02">
+              2016-08-02
             </time>
           </span>
 
@@ -292,8 +289,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/08/iOS大文件下载遇上nginx反向代理/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/08/iOS大文件下载遇上nginx反向代理/" itemprop="commentsCount"></span>
+                <a href="/2016/08/02/从git-reset-hard中拯救代码/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/08/02/从git-reset-hard中拯救代码/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -316,31 +313,18 @@
       
 
       
-        <p>内网部署<code>nginx</code>，直接挂上2g多的zip包，<code>iOS</code>下载正常，将zip包挂到公司服务器，下载到49.1%（差不多1.07G）就中断链接，于是就各种猜测原因。</p>
-<ul>
-<li><p>文件下载代码写的有问题？</p>
-<p>  <code>NSURLSessionDownload</code>,<code>NSURLConnection</code>,<code>AFN</code>换了个遍都一样,虽然没有找到原因，但是发现<code>NSURLSessionDownload</code>下载时占用内存比<code>NSURLConnection</code>少，机制更优。</p>
-</li>
-<li><p>服务器的问题？</p>
-<p>  安卓可以正常下载，<code>windows</code>浏览器可以正常下载，<code>safari</code>下载到49.1%同样网络中断？what？开始抓包，发现没有异常，只有<code>nginx</code>版本不一样，后来发现公司服务器用了<code>反向代理</code>。</p>
-<p>  google后尝试写改配置<code>nginx.conf</code>，关闭buffer，<code>proxy_buffering off</code>，可以正常下载了。再尝试开启buffer，然后配置相关参数，也能正常下载，下载的速度和配置的参数有关系，配置参考如下:</p>
-<pre><code>proxy_cache参数配置文件/usr/local/nginx/conf/proxy.conf
-
-proxy_temp_path /home/proxy_temp_dir; 
-proxy_cache_path /home/proxy_cache_dir levels=1:2 keys_zone=cache_one:500m inactive=1d max_size=30g; 
-client_body_buffer_size 512k; 
-proxy_connect_timeout 60; 
-proxy_read_timeout 60; 
-proxy_send_timeout 60; 
-proxy_buffer_size 32k; 
-proxy_buffers 4 64k; 
-proxy_busy_buffers_size 128k; 
-proxy_temp_file_write_size 128k; 
-proxy_next_upstream error timeout invalid_header http_500 http_503 http_404; 
-proxy_cache cache_one; 
-</code></pre></li>
-</ul>
-<p>至此事情告一段落。</p>
+        <h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>如果<code>git add .</code>后还未<code>commit</code>输入了<code>git reset --hard</code>,会发现缓存区和本地都没有了这些改动的纪录，因为用了<code>--hard</code>。</p>
+<h2 id="挽救"><a href="#挽救" class="headerlink" title="挽救"></a>挽救</h2><p>由于每次git命令进行操作时git都会对相关文件进行快照,并通过一定形式把信息保存再<code>.git/</code>目录下。</p>
+<p>由于此前我使用过<code>git add .</code>命令,因此当文件被放进暂存区时,快照信息对象就已经保存了，而实用<code>git reset --hard</code>之后,这些对象就变成了悬空文件对象(<code>dangling blob</code>)。</p>
+<p>我们可以实用<code>git fsck</code>命令显示他们</p>
+<p><a href="https://git-scm.com/docs/git-fsck" target="_blank" rel="external">git fsck</a>：用于验证当前git仓库数据的有效性和一致性，能够显示那些”丢失”的<code>commit</code>、<code>blob(文件)</code>、<code>tree</code>等。</p>
+<p>我们可以通过以下命令</p>
+<pre><code>git fsck --cache --unreachable $(git for-each-ref --format=&quot;%(objectname)&quot;)
+</code></pre><p>我们得到一大堆blob的hash ID</p>
+<pre><code>unreachable blob 907b308167f0880fb2a5c0e1614bb0c7620f9dc3
+unreachable blob 72663d3adcf67548b9e0f0b2eeef62bce3d53e03
+...
+</code></pre><p>接下来使用git show就能显示这些对象的内容了，例如git show 907b308</p>
 
       
     </div>
@@ -362,7 +346,7 @@ proxy_cache cache_one;
       
         <div class="post-tags">
           
-            <a href="/tags/nginx/" rel="tag">#nginx</a>
+            <a href="/tags/Git/" rel="tag">#Git</a>
           
         </div>
       
@@ -371,17 +355,13 @@ proxy_cache cache_one;
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/05/24/Start-NexT/" rel="next" title="Start NexT">
-                <i class="fa fa-chevron-left"></i> Start NexT
+              <a href="/2016/08/01/疲民之术-转载/" rel="next" title="疲民之术[转载]">
+                <i class="fa fa-chevron-left"></i> 疲民之术[转载]
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/12/利用CAShaperLayer绘制气泡/" rel="prev" title="利用CAShaperLayer绘制气泡">
-                利用CAShaperLayer绘制气泡 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -522,7 +502,7 @@ proxy_cache cache_one;
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#场景"><span class="nav-number">1.</span> <span class="nav-text">场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#挽救"><span class="nav-number">2.</span> <span class="nav-text">挽救</span></a></li></ol></div>
             
           </div>
         </section>
@@ -642,9 +622,9 @@ proxy_cache cache_one;
 
     <script type="text/javascript">
       var disqus_shortname = 'yuppieboy';
-      var disqus_identifier = '2016/07/08/iOS大文件下载遇上nginx反向代理/';
-      var disqus_title = 'iOS大文件下载遇上nginx反向代理';
-      var disqus_url = 'http://yoursite.com/2016/07/08/iOS大文件下载遇上nginx反向代理/';
+      var disqus_identifier = '2016/08/02/从git-reset-hard中拯救代码/';
+      var disqus_title = '从git reset --hard中拯救代码';
+      var disqus_url = 'http://yoursite.com/2016/08/02/从git-reset-hard中拯救代码/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
