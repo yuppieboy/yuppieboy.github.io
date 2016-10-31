@@ -248,6 +248,215 @@
             
               
                 
+                <a class="post-title-link" href="/2016/10/31/FFmpeg的安装与使用/" itemprop="url">
+                  FFmpeg的安装与使用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-31T15:19:46+08:00" content="2016-10-31">
+              2016-10-31
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Tool/" itemprop="url" rel="index">
+                    <span itemprop="name">Tool</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/31/FFmpeg的安装与使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/10/31/FFmpeg的安装与使用/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><code>FFmpeg</code>是一套可以用来记录、转换数字音频、视频，并能将其转化为流的开源计算机程序。采用LGPL或GPL许可证。它提供了录制、转换以及流化音视频的完整解决方案。它包含了非常先进的音频/视频编解码库libavcodec，为了保证高可移植性和编解码质量，libavcodec里很多code都是从头开发的。<br>FFmpeg在Linux平台下开发，但它同样也可以在其它操作系统环境中编译运行，包括Windows、Mac OS X等。这个项目最早由Fabrice Bellard发起，现在由Michael Niedermayer维护。许多FFmpeg的开发人员都来自MPlayer项目，而且当前FFmpeg也是放在MPlayer项目组的服务器上。项目的名称来自MPEG视频编码标准，前面的”FF”代表”Fast Forward”。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><pre><code>brew install ffmpeg
+</code></pre><p>由于license的原因，libvo-aacenc被默认安装，如果想要安装libfaac或者libfdk-aac可以通过以下命令：</p>
+<pre><code>brew reinstall ffmpeg --with-faac
+
+brew reinstall ffmpeg --with-fdk-aac
+</code></pre><div align="center"><br><img src="https://raw.githubusercontent.com/yuppieboy/yuppieboy.github.io/master/images/0A976D62-F7E7-47BB-8AF4-CDE0B8BDADCD.png" width="100%"><br></div>
+
+<h2 id="项目组成"><a href="#项目组成" class="headerlink" title="项目组成"></a>项目组成</h2><p><code>libavformat</code>：用于各种音视频封装格式的生成和解析，包括获取解码所需信息以生成解码上下文结构和读取音视频帧等功能</p>
+<p><code>libavcodec</code>：用于各种类型声音/图像编解码</p>
+<p><code>libavutil</code>：包含一些公共的工具函数</p>
+<p><code>libswscale</code>：用于视频场景比例缩放、色彩映射转换</p>
+<p><code>libpostproc</code>：用于后期效果处理</p>
+<p><code>ffmpeg</code>：该项目提供的一个工具，可用于格式转换、解码或电视卡即时编码等</p>
+<p><code>ffsever</code>：一个 HTTP 多媒体即时广播串流服务器</p>
+<p><code>ffplay</code>：是一个简单的播放器，使用ffmpeg 库解析和解码，通过SDL显示</p>
+<h2 id="命令集"><a href="#命令集" class="headerlink" title="命令集"></a>命令集</h2><p>ffmpeg 命令集举例</p>
+<p>1.获取视频的信息</p>
+<pre><code>ffmpeg -i video.avi
+</code></pre><p>2.将图片序列合成视频</p>
+<pre><code>ffmpeg -f image2 -i image%d.jpg video.mpg
+</code></pre><p>上面的命令会把当前目录下的图片（名字如：image1.jpg. image2.jpg. 等…）合并成video.mpg</p>
+<p>3.将视频分解成图片序列</p>
+<pre><code>ffmpeg -i video.mpg image%d.jpg
+</code></pre><p>上面的命令会生成image1.jpg. image2.jpg. …<br>支持的图片格式有：PGM. PPM. PAM. PGMYUV. JPEG. GIF. PNG. TIFF. SGI</p>
+<p>4.为视频重新编码以适合在iPod/iPhone上播放</p>
+<pre><code>ffmpeg -i source_video.avi input -acodec aac -ab 128kb -vcodec mpeg4 -b 1200kb -mbd 2 -flags +4mv+trell -aic 2 -cmp 2 -subcmp 2 -s 320x180 -title X final_video.mp4
+</code></pre><p>说明：</p>
+<ul>
+<li>源视频：source_video.avi</li>
+<li>音频编码：aac</li>
+<li>音频位率：128kb/s</li>
+<li>视频编码：mpeg4</li>
+<li>视频位率：1200kb/s</li>
+<li>视频尺寸：320 X 180</li>
+<li>生成的视频：final_video.mp4</li>
+</ul>
+<p>5.为视频重新编码以适合在PSP上播放</p>
+<pre><code>ffmpeg -i source_video.avi -b 300 -s 320x240 -vcodec xvid -ab 32 -ar 24000 -acodec aac final_video.mp4
+</code></pre><p>说明：</p>
+<ul>
+<li>源视频：source_video.avi</li>
+<li>音频编码：aac</li>
+<li>音频位率：32kb/s</li>
+<li>视频编码：xvid</li>
+<li>视频位率：1200kb/s</li>
+<li>视频尺寸：320 X 180</li>
+<li>生成的视频：final_video.mp4</li>
+</ul>
+<p>6.从视频抽出声音.并存为Mp3</p>
+<pre><code>ffmpeg -i source_video.avi -vn -ar 44100 -ac 2 -ab 192 -f mp3 sound.mp3
+</code></pre><p>说明：</p>
+<ul>
+<li>源视频：source_video.avi</li>
+<li>音频位率：192kb/s</li>
+<li>输出格式：mp3</li>
+<li>生成的声音：sound.mp3</li>
+</ul>
+<p>7.将wav文件转成Mp3</p>
+<pre><code>ffmpeg -i son_origine.avi -vn -ar 44100 -ac 2 -ab 192 -f mp3 son_final.mp3
+</code></pre><p>8.将.avi视频转成.mpg</p>
+<pre><code>ffmpeg -i video_origine.avi video_finale.mpg
+</code></pre><p>9.将.mpg转成.avi</p>
+<pre><code>ffmpeg -i video_origine.mpg video_finale.avi
+</code></pre><p>10.将.avi转成gif动画（未压缩）</p>
+<pre><code>ffmpeg -i video_origine.avi gif_anime.gif
+</code></pre><p>11.合成视频和音频</p>
+<pre><code>ffmpeg -i son.wav -i video_origine.avi video_finale.mpg
+</code></pre><p>12.将.avi转成.flv</p>
+<pre><code>ffmpeg -i video_origine.avi -ab 56 -ar 44100 -b 200 -r 15 -s 320x240 -f flv video_finale.flv
+</code></pre><p>13.将.avi转成dv</p>
+<pre><code>ffmpeg -i video_origine.avi -s pal -r pal -aspect 4:3 -ar 48000 -ac 2 video_finale.dv
+</code></pre><p>或者：</p>
+<pre><code>ffmpeg -i video_origine.avi -target pal-dv video_finale.dv
+</code></pre><p>14.将.avi压缩成divx</p>
+<pre><code>ffmpeg -i video_origine.avi -s 320x240 -vcodec msmpeg4v2 video_finale.avi
+</code></pre><p>15.将Ogg Theora压缩成Mpeg dvd</p>
+<pre><code>ffmpeg -i film_sortie_cinelerra.ogm -s 720x576 -vcodec mpeg2video -acodec mp3 film_terminate.mpg
+</code></pre><p>16.将.avi压缩成SVCD mpeg2<br>NTSC格式：</p>
+<pre><code>ffmpeg -i video_origine.avi -target ntsc-svcd video_finale.mpg
+</code></pre><p>PAL格式：</p>
+<pre><code>ffmpeg -i video_origine.avi -target pal-svcd video_finale.mpg
+</code></pre><p>17.将.avi压缩成VCD mpeg2<br>NTSC格式：</p>
+<pre><code>ffmpeg -i video_origine.avi -target ntsc-vcd video_finale.mpg
+</code></pre><p>PAL格式：</p>
+<pre><code>ffmpeg -i video_origine.avi -target pal-vcd video_finale.mpg
+</code></pre><p>18.多通道编码</p>
+<pre><code>ffmpeg -i fichierentree -pass 2 -passlogfile ffmpeg2pass fichiersortie-2
+</code></pre><p>19.从flv提取mp3</p>
+<pre><code>ffmpeg -i source.flv -ab 128k dest.mp3
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/10/26/我的第一个爬虫程序/" itemprop="url">
                   我的第一个爬虫程序
                 </a>
@@ -1775,150 +1984,6 @@ unreachable blob 72663d3adcf67548b9e0f0b2eeef62bce3d53e03
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/08/iOS大文件下载遇上nginx反向代理/" itemprop="url">
-                  iOS大文件下载遇上nginx反向代理
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-08T10:44:15+08:00" content="2016-07-08">
-              2016-07-08
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/08/iOS大文件下载遇上nginx反向代理/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/08/iOS大文件下载遇上nginx反向代理/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>内网部署<code>nginx</code>，直接挂上2g多的zip包，<code>iOS</code>下载正常，将zip包挂到公司服务器，下载到49.1%（差不多1.07G）就中断链接，于是就各种猜测原因。</p>
-<ul>
-<li><p>文件下载代码写的有问题？</p>
-<p>  <code>NSURLSessionDownload</code>,<code>NSURLConnection</code>,<code>AFN</code>换了个遍都一样,虽然没有找到原因，但是发现<code>NSURLSessionDownload</code>下载时占用内存比<code>NSURLConnection</code>少，机制更优。</p>
-</li>
-<li><p>服务器的问题？</p>
-<p>  安卓可以正常下载，<code>windows</code>浏览器可以正常下载，<code>safari</code>下载到49.1%同样网络中断？what？开始抓包，发现没有异常，只有<code>nginx</code>版本不一样，后来发现公司服务器用了<code>反向代理</code>。</p>
-<p>  google后尝试写改配置<code>nginx.conf</code>，关闭buffer，<code>proxy_buffering off</code>，可以正常下载了。再尝试开启buffer，然后配置相关参数，也能正常下载，下载的速度和配置的参数有关系，配置参考如下:</p>
-<pre><code>proxy_cache参数配置文件/usr/local/nginx/conf/proxy.conf
-
-proxy_temp_path /home/proxy_temp_dir; 
-proxy_cache_path /home/proxy_cache_dir levels=1:2 keys_zone=cache_one:500m inactive=1d max_size=30g; 
-client_body_buffer_size 512k; 
-proxy_connect_timeout 60; 
-proxy_read_timeout 60; 
-proxy_send_timeout 60; 
-proxy_buffer_size 32k; 
-proxy_buffers 4 64k; 
-proxy_busy_buffers_size 128k; 
-proxy_temp_file_write_size 128k; 
-proxy_next_upstream error timeout invalid_header http_500 http_503 http_404; 
-proxy_cache cache_one; 
-</code></pre></li>
-</ul>
-<p>至此事情告一段落。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1964,7 +2029,7 @@ proxy_cache cache_one;
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-count">13</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1972,7 +2037,7 @@ proxy_cache cache_one;
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1981,7 +2046,7 @@ proxy_cache cache_one;
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
