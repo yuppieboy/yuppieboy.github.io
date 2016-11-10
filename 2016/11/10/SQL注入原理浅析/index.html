@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="爬虫," />
+  <meta name="keywords" content="sql," />
 
 
 
@@ -84,25 +84,19 @@
 
 
 
-<meta name="description" content="前言学习python一段时间了，也了解过爬虫，觉得甚是有趣，于是想自己动手试试，因此诞生了我的第一个爬虫。
-环境使用pip安装beautifulsoup4(先翻墙，不然pip会报timeout错误),beautifulsoup省去了繁复的正则,使得开发起来更加友好。
-sudo -H pip --default-timeout=100 install beautifulsoup4
-实现以下程序主要实">
+<meta name="description" content="原理SQL注入攻击指的是通过构建特殊的输入作为参数传入Web应用程序，而这些输入大都是SQL语法里的一些组合，通过执行SQL语句进而执行攻击者所要的操作，其主要原因是程序没有细致地过滤用户输入的数据，致使非法数据侵入系统。
+根据相关技术原理，SQL注入可以分为平台层注入和代码层注入。前者由不安全的数据库配置或数据库平台的漏洞所致；后者主要是由于程序员对输入未进行细致地过滤，从而执行了非法的数据查询">
 <meta property="og:type" content="article">
-<meta property="og:title" content="我的第一个爬虫程序">
-<meta property="og:url" content="http://yoursite.com/2016/10/26/我的第一个爬虫程序/index.html">
+<meta property="og:title" content="SQL注入原理浅析">
+<meta property="og:url" content="http://yoursite.com/2016/11/10/SQL注入原理浅析/index.html">
 <meta property="og:site_name" content="WJ's Den">
-<meta property="og:description" content="前言学习python一段时间了，也了解过爬虫，觉得甚是有趣，于是想自己动手试试，因此诞生了我的第一个爬虫。
-环境使用pip安装beautifulsoup4(先翻墙，不然pip会报timeout错误),beautifulsoup省去了繁复的正则,使得开发起来更加友好。
-sudo -H pip --default-timeout=100 install beautifulsoup4
-实现以下程序主要实">
-<meta property="og:updated_time" content="2016-10-26T02:03:14.000Z">
+<meta property="og:description" content="原理SQL注入攻击指的是通过构建特殊的输入作为参数传入Web应用程序，而这些输入大都是SQL语法里的一些组合，通过执行SQL语句进而执行攻击者所要的操作，其主要原因是程序没有细致地过滤用户输入的数据，致使非法数据侵入系统。
+根据相关技术原理，SQL注入可以分为平台层注入和代码层注入。前者由不安全的数据库配置或数据库平台的漏洞所致；后者主要是由于程序员对输入未进行细致地过滤，从而执行了非法的数据查询">
+<meta property="og:updated_time" content="2016-11-10T04:58:57.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="我的第一个爬虫程序">
-<meta name="twitter:description" content="前言学习python一段时间了，也了解过爬虫，觉得甚是有趣，于是想自己动手试试，因此诞生了我的第一个爬虫。
-环境使用pip安装beautifulsoup4(先翻墙，不然pip会报timeout错误),beautifulsoup省去了繁复的正则,使得开发起来更加友好。
-sudo -H pip --default-timeout=100 install beautifulsoup4
-实现以下程序主要实">
+<meta name="twitter:title" content="SQL注入原理浅析">
+<meta name="twitter:description" content="原理SQL注入攻击指的是通过构建特殊的输入作为参数传入Web应用程序，而这些输入大都是SQL语法里的一些组合，通过执行SQL语句进而执行攻击者所要的操作，其主要原因是程序没有细致地过滤用户输入的数据，致使非法数据侵入系统。
+根据相关技术原理，SQL注入可以分为平台层注入和代码层注入。前者由不安全的数据库配置或数据库平台的漏洞所致；后者主要是由于程序员对输入未进行细致地过滤，从而执行了非法的数据查询">
 
 
 
@@ -123,9 +117,9 @@ sudo -H pip --default-timeout=100 install beautifulsoup4
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/10/26/我的第一个爬虫程序/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/11/10/SQL注入原理浅析/"/>
 
-  <title> 我的第一个爬虫程序 | WJ's Den </title>
+  <title> SQL注入原理浅析 | WJ's Den </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -255,7 +249,7 @@ sudo -H pip --default-timeout=100 install beautifulsoup4
             
             
               
-                我的第一个爬虫程序
+                SQL注入原理浅析
               
             
           </h1>
@@ -267,8 +261,8 @@ sudo -H pip --default-timeout=100 install beautifulsoup4
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-26T09:35:03+08:00" content="2016-10-26">
-              2016-10-26
+            <time itemprop="dateCreated" datetime="2016-11-10T12:39:05+08:00" content="2016-11-10">
+              2016-11-10
             </time>
           </span>
 
@@ -281,8 +275,8 @@ sudo -H pip --default-timeout=100 install beautifulsoup4
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
                   </a>
                 </span>
 
@@ -297,8 +291,8 @@ sudo -H pip --default-timeout=100 install beautifulsoup4
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/10/26/我的第一个爬虫程序/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/10/26/我的第一个爬虫程序/" itemprop="commentsCount"></span>
+                <a href="/2016/11/10/SQL注入原理浅析/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/11/10/SQL注入原理浅析/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -321,68 +315,45 @@ sudo -H pip --default-timeout=100 install beautifulsoup4
       
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>学习python一段时间了，也了解过爬虫，觉得甚是有趣，于是想自己动手试试，因此诞生了我的第一个爬虫。</p>
-<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>使用<code>pip</code>安装<code>beautifulsoup4</code>(先翻墙，不然pip会报<code>timeout</code>错误),<code>beautifulsoup</code>省去了繁复的正则,使得开发起来更加友好。</p>
-<pre><code>sudo -H pip --default-timeout=100 install beautifulsoup4
-</code></pre><h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>以下程序主要实现了一个小功能即爬取<code>链家网</code>苏州工业园区100平以下的所有二手房房源，并且生成csv文件（可由excel打开）。</p>
-<pre><code>#!/usr/bin/python
-# -*- coding: utf-8 -*-
+        <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>SQL注入攻击指的是通过构建特殊的输入作为参数传入Web应用程序，而这些输入大都是SQL语法里的一些组合，通过执行SQL语句进而执行攻击者所要的操作，其主要原因是程序没有细致地过滤用户输入的数据，致使非法数据侵入系统。</p>
+<p>根据相关技术原理，SQL注入可以分为平台层注入和代码层注入。前者由不安全的数据库配置或数据库平台的漏洞所致；后者主要是由于程序员对输入未进行细致地过滤，从而执行了非法的数据查询。基于此，SQL注入的产生原因通常表现在以下几方面：①不当的类型处理；②不安全的数据库配置；③不合理的查询集处理；④不当的错误处理；⑤转义字符处理不合适；⑥多个提交处理不当。</p>
+<h2 id="攻击"><a href="#攻击" class="headerlink" title="攻击"></a>攻击</h2><p>API在编写过程中没有过滤用户输入的非法字符串，很容易造成sql注入，以mysql-python为例：</p>
+<pre><code>conn = MySQLdb.connect(
+  host=&apos;localhost&apos;,
+  port=3306,
+  user=&apos;root&apos;,
+  # passwd=&apos;&apos;,
+  db=&apos;Test&apos;
+)
 
-import sys
-import time
-import requests
-import urllib2
-import codecs
+cur = conn.cursor()
 
-reload(sys)
-sys.setdefaultencoding(&apos;utf8&apos;)
+try:
+  name = &quot;1 or 1 = 1&quot;
+  password = &quot;1 or 1 = 1&quot;
+  sql = &apos;select * from user where name = %s and password = %s&apos;%(name,password)
+  cur.execute(sql)
+  print cur.fetchall()
+  conn.commit()
 
-from bs4 import BeautifulSoup
+except Exception as e:
+  print e
+  conn.rollback()
 
-class houseInfo:
-    def __init__(self,title = &apos;&apos;,address = &apos;&apos;,square =&apos; &apos;,huxing = &apos;&apos;,priceInfo = &apos;&apos;,unitPrice = &apos;&apos;,link = &apos;&apos;):
-        self.title = title
-        self.address = address
-        self.square = square
-        self.huxing = huxing
-        self.priceInfo = priceInfo
-        self.unitPrice = unitPrice
-        self.link = link
+cur.close()
+conn.close()
+</code></pre><p>result：</p>
+<pre><code>((&apos;Tom&apos;, &apos;0000&apos;, &apos;\xe5\xa5\xb3&apos;), (&apos;Alen&apos;, &apos;7875&apos;, &apos;\xe7\x94\xb7&apos;), (&apos;Jack&apos;, &apos;7455&apos;, &apos;\xe7\x94\xb7&apos;))
+</code></pre><p>很明显使用简单的<code>&quot;1 or 1 = 1&quot;</code>就欺骗了数据库获取了所以user表内容。</p>
+<h2 id="防护"><a href="#防护" class="headerlink" title="防护"></a>防护</h2><p>归纳一下，主要有以下几点：</p>
+<p>1.永远不要信任用户的输入。对用户的输入进行校验，可以通过正则表达式，或限制长度；对单引号和<br>双”-“进行转换等。</p>
+<p>2.永远不要使用动态拼装sql，可以使用参数化的sql或者直接使用存储过程进行数据查询存取。</p>
+<p>3.永远不要使用管理员权限的数据库连接，为每个应用使用单独的权限有限的数据库连接。</p>
+<p>4.不要把机密信息直接存放，加密或者hash掉密码和敏感的信息。</p>
+<p>5.应用的异常信息应该给出尽可能少的提示，最好使用自定义的错误信息对原始错误信息进行包装</p>
+<p>6.sql注入的检测方法一般采取辅助软件或网站平台来检测，软件一般采用sql注入检测工具jsky，网站平台就有亿思网站安全平台检测工具。MDCSOFT SCAN等。采用MDCSOFT-IPS可以有效的防御SQL注入，XSS攻击等。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>SQL注入的手法相当灵活，在注入的时候会碰到很多意外的情况。能不能根据具体情况进行分析，构造巧妙的SQL语句，从而成功获取想要的数据，是高手与“菜鸟”的根本区别。😊</p>
 
-list = []
-
-def grab(url):
-    # 使用requests或者urllib2都可以
-    # request = urllib2.Request(url)
-    # response = urllib2.urlopen(request)
-    # plain_text = response.read()
-    source_code = requests.get(url)
-    plain_text = source_code.text
-    soup = BeautifulSoup(plain_text,&quot;html.parser&quot;)
-    list_soup = soup.find(&quot;ul&quot;, class_=&quot;house-lst&quot;).find_all(&apos;li&apos;);
-
-    for item in list_soup:
-        title = item.find(&quot;div&quot;, class_=&quot;info-panel&quot;).a.string
-        address = item.find(&quot;div&quot;, class_=&quot;info-panel&quot;).find(&quot;div&quot;, class_=&quot;col-1&quot;).find(&quot;div&quot;, class_=&quot;where&quot;).a.string
-        square = item.find(&quot;div&quot;, class_=&quot;info-panel&quot;).find(&quot;div&quot;, class_=&quot;col-1&quot;).find(&quot;div&quot;, class_=&quot;where&quot;).find_all(&apos;span&apos;)[2].string
-        huxing = item.find(&quot;div&quot;, class_=&quot;info-panel&quot;).find(&quot;div&quot;, class_=&quot;col-1&quot;).find(&quot;div&quot;, class_=&quot;where&quot;).find_all(&apos;span&apos;)[1].string
-        priceInfo = item.find(&quot;div&quot;, class_=&quot;info-panel&quot;).find(&quot;div&quot;, class_=&quot;col-3&quot;).find(&quot;div&quot;, class_=&quot;price&quot;).span.string
-        unitPrice = item.find(&quot;div&quot;, class_=&quot;info-panel&quot;).find(&quot;div&quot;, class_=&quot;col-3&quot;).find(&quot;div&quot;, class_=&quot;price-pre&quot;).string
-        link = &apos;http://su.lianjia.com&apos;+item.find(&quot;div&quot;, class_=&quot;info-panel&quot;).a.get(&apos;href&apos;)
-        info = houseInfo(title,address,square,huxing,priceInfo,unitPrice)
-        single = &apos;%s,%s,%s,%s,%s万,%s,%s\n&apos;%(title,address,square,huxing,priceInfo,unitPrice,link)
-        list.append(single)
-
-for i in range(1, 23):
-    page = &quot;http://su.lianjia.com/ershoufang/gongyeyuan/d{0}p1/&quot;.format(str(i))
-    grab(page)
-
-with open(&apos;data.csv&apos;, &apos;w&apos;) as f:
-    for item in list:
-        # BOM_UTF8是为了excel中文不乱码
-        f.write(codecs.BOM_UTF8.decode(&apos;utf-8&apos;))
-        f.write(item)
-</code></pre>
       
     </div>
 
@@ -404,7 +375,7 @@ with open(&apos;data.csv&apos;, &apos;w&apos;) as f:
       
         <div class="post-tags">
           
-            <a href="/tags/爬虫/" rel="tag">#爬虫</a>
+            <a href="/tags/sql/" rel="tag">#sql</a>
           
         </div>
       
@@ -413,17 +384,13 @@ with open(&apos;data.csv&apos;, &apos;w&apos;) as f:
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/10/20/python打包可执行文件/" rel="next" title="python打包可执行文件">
-                <i class="fa fa-chevron-left"></i> python打包可执行文件
+              <a href="/2016/11/01/【转载】Ruby-China的RubyGems镜像上线/" rel="next" title="【转载】Ruby China的RubyGems镜像上线">
+                <i class="fa fa-chevron-left"></i> 【转载】Ruby China的RubyGems镜像上线
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/10/31/FFmpeg的安装与使用/" rel="prev" title="FFmpeg的安装与使用">
-                FFmpeg的安装与使用 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -564,7 +531,7 @@ with open(&apos;data.csv&apos;, &apos;w&apos;) as f:
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">2.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">3.</span> <span class="nav-text">实现</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#攻击"><span class="nav-number">2.</span> <span class="nav-text">攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防护"><span class="nav-number">3.</span> <span class="nav-text">防护</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li></ol></div>
             
           </div>
         </section>
@@ -684,9 +651,9 @@ with open(&apos;data.csv&apos;, &apos;w&apos;) as f:
 
     <script type="text/javascript">
       var disqus_shortname = 'yuppieboy';
-      var disqus_identifier = '2016/10/26/我的第一个爬虫程序/';
-      var disqus_title = "我的第一个爬虫程序";
-      var disqus_url = 'http://yoursite.com/2016/10/26/我的第一个爬虫程序/';
+      var disqus_identifier = '2016/11/10/SQL注入原理浅析/';
+      var disqus_title = "SQL注入原理浅析";
+      var disqus_url = 'http://yoursite.com/2016/11/10/SQL注入原理浅析/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');

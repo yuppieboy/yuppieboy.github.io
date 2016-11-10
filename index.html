@@ -248,6 +248,163 @@
             
               
                 
+                <a class="post-title-link" href="/2016/11/10/SQL注入原理浅析/" itemprop="url">
+                  SQL注入原理浅析
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-10T12:39:05+08:00" content="2016-11-10">
+              2016-11-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/10/SQL注入原理浅析/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/11/10/SQL注入原理浅析/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>SQL注入攻击指的是通过构建特殊的输入作为参数传入Web应用程序，而这些输入大都是SQL语法里的一些组合，通过执行SQL语句进而执行攻击者所要的操作，其主要原因是程序没有细致地过滤用户输入的数据，致使非法数据侵入系统。</p>
+<p>根据相关技术原理，SQL注入可以分为平台层注入和代码层注入。前者由不安全的数据库配置或数据库平台的漏洞所致；后者主要是由于程序员对输入未进行细致地过滤，从而执行了非法的数据查询。基于此，SQL注入的产生原因通常表现在以下几方面：①不当的类型处理；②不安全的数据库配置；③不合理的查询集处理；④不当的错误处理；⑤转义字符处理不合适；⑥多个提交处理不当。</p>
+<h2 id="攻击"><a href="#攻击" class="headerlink" title="攻击"></a>攻击</h2><p>API在编写过程中没有过滤用户输入的非法字符串，很容易造成sql注入，以mysql-python为例：</p>
+<pre><code>conn = MySQLdb.connect(
+  host=&apos;localhost&apos;,
+  port=3306,
+  user=&apos;root&apos;,
+  # passwd=&apos;&apos;,
+  db=&apos;Test&apos;
+)
+
+cur = conn.cursor()
+
+try:
+  name = &quot;1 or 1 = 1&quot;
+  password = &quot;1 or 1 = 1&quot;
+  sql = &apos;select * from user where name = %s and password = %s&apos;%(name,password)
+  cur.execute(sql)
+  print cur.fetchall()
+  conn.commit()
+
+except Exception as e:
+  print e
+  conn.rollback()
+
+cur.close()
+conn.close()
+</code></pre><p>result：</p>
+<pre><code>((&apos;Tom&apos;, &apos;0000&apos;, &apos;\xe5\xa5\xb3&apos;), (&apos;Alen&apos;, &apos;7875&apos;, &apos;\xe7\x94\xb7&apos;), (&apos;Jack&apos;, &apos;7455&apos;, &apos;\xe7\x94\xb7&apos;))
+</code></pre><p>很明显使用简单的<code>&quot;1 or 1 = 1&quot;</code>就欺骗了数据库获取了所以user表内容。</p>
+<h2 id="防护"><a href="#防护" class="headerlink" title="防护"></a>防护</h2><p>归纳一下，主要有以下几点：</p>
+<p>1.永远不要信任用户的输入。对用户的输入进行校验，可以通过正则表达式，或限制长度；对单引号和<br>双”-“进行转换等。</p>
+<p>2.永远不要使用动态拼装sql，可以使用参数化的sql或者直接使用存储过程进行数据查询存取。</p>
+<p>3.永远不要使用管理员权限的数据库连接，为每个应用使用单独的权限有限的数据库连接。</p>
+<p>4.不要把机密信息直接存放，加密或者hash掉密码和敏感的信息。</p>
+<p>5.应用的异常信息应该给出尽可能少的提示，最好使用自定义的错误信息对原始错误信息进行包装</p>
+<p>6.sql注入的检测方法一般采取辅助软件或网站平台来检测，软件一般采用sql注入检测工具jsky，网站平台就有亿思网站安全平台检测工具。MDCSOFT SCAN等。采用MDCSOFT-IPS可以有效的防御SQL注入，XSS攻击等。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>SQL注入的手法相当灵活，在注入的时候会碰到很多意外的情况。能不能根据具体情况进行分析，构造巧妙的SQL语句，从而成功获取想要的数据，是高手与“菜鸟”的根本区别。😊</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/11/01/【转载】Ruby-China的RubyGems镜像上线/" itemprop="url">
                   【转载】Ruby China的RubyGems镜像上线
                 </a>
@@ -1560,397 +1717,6 @@ unreachable blob 72663d3adcf67548b9e0f0b2eeef62bce3d53e03
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/18/iOS-9-全新Contacts Framework解析/" itemprop="url">
-                  iOS 9 全新Contacts Framework解析
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-18T09:17:20+08:00" content="2016-07-18">
-              2016-07-18
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/18/iOS-9-全新Contacts Framework解析/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/18/iOS-9-全新Contacts Framework解析/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>在以前iOS开发中，涉及联系人相关的编程，代码都非常繁琐，并且框架的设计也不是Objective-C风格的，这使开发者用起来非常的难受。在iOS9中，apple终于解决了这个问题，全新的Contacts Framework将完全替代AddressBookFramework，AddressBookFramework也将成为历史被弃用。</p>
-<h2 id="Contact框架的使用"><a href="#Contact框架的使用" class="headerlink" title="Contact框架的使用"></a>Contact框架的使用</h2><blockquote>
-<p>CNContact基本属性</p>
-</blockquote>
-<pre><code>/**
- *  设置联系人的基本属性
- *
- *  @return 返回联系人的对象
- */
-- (CNMutableContact *)initializeContact{
-    // 创建联系人对象
-    CNMutableContact *contact = [[CNMutableContact alloc] init];
-    // 设置联系人的头像
-    contact.imageData = UIImagePNGRepresentation([UIImage imageNamed:@&quot;7677360.png&quot;]);
-    // 设置联系人姓名
-    contact.givenName = @&quot;伟君&quot;;
-    // 设置姓氏
-    contact.familyName = @&quot;丁&quot;;
-    // 设置联系人邮箱
-    CNLabeledValue *homeEmail = [CNLabeledValue labeledValueWithLabel:CNLabelHome value:@&quot;12345qq.com&quot;];
-    CNLabeledValue *workEmail = [CNLabeledValue labeledValueWithLabel:CNLabelWork value:@&quot;32467@sina.cn&quot;];
-    CNLabeledValue *otherEmail = [CNLabeledValue labeledValueWithLabel:CNLabelOther value:@&quot;lanaj.com&quot;];
-    contact.emailAddresses = @[homeEmail,workEmail,otherEmail];
-    // 设置机构名
-    contact.organizationName = @&quot;互联网&quot;;
-    // 设置部门
-    contact.departmentName = @&quot;IT&quot;;
-    // 设置工作的名称
-    contact.jobTitle = @&quot;ios&quot;;
-    // 设置社会的简述
-    CNSocialProfile *profile = [[CNSocialProfile alloc] initWithUrlString:@&quot;12306.cn&quot; username:@&quot;Paul&quot; userIdentifier:nil service:@&quot;IT行业&quot;];
-    CNLabeledValue *socialProfile = [CNLabeledValue labeledValueWithLabel:CNSocialProfileServiceGameCenter value:profile];
-    contact.socialProfiles = @[socialProfile];
-    // 设置电话号码
-    CNPhoneNumber *mobileNumber = [[CNPhoneNumber alloc] initWithStringValue:@&quot;18500000000&quot;];
-    CNLabeledValue *mobilePhone = [[CNLabeledValue alloc] initWithLabel:CNLabelPhoneNumberMobile value:mobileNumber];
-    contact.phoneNumbers = @[mobilePhone];
-    // 设置与联系人的关系
-    CNContactRelation *friend = [[CNContactRelation alloc] initWithName:@&quot;好基友&quot;];
-    CNLabeledValue *relation = [CNLabeledValue labeledValueWithLabel:CNLabelContactRelationFriend value:friend];
-    contact.contactRelations = @[relation];
-    // 设置生日
-    NSDateComponents *birthday = [[NSDateComponents alloc] init];
-    birthday.day = 6;
-    birthday.month = 5;
-    birthday.year = 2000;
-    contact.birthday = birthday;
-
-    return contact;
-}
-</code></pre><blockquote>
-<p>CNSaveRequest使用</p>
-</blockquote>
-<pre><code>@interface CNSaveRequest : NSObject
-//添加一个联系人
-- (void)addContact:(CNMutableContact *)contact toContainerWithIdentifier:(nullable NSString *)identifier;
-
-//更新一个联系人
-- (void)updateContact:(CNMutableContact *)contact;
-//删除一个联系人
-- (void)deleteContact:(CNMutableContact *)contact;
-//添加一组联系人
-- (void)addGroup:(CNMutableGroup *)group toContainerWithIdentifier:(nullable NSString *)identifier;
-//更新一组联系人
-- (void)updateGroup:(CNMutableGroup *)group;
-//删除一组联系人
-- (void)deleteGroup:(CNMutableGroup *)group;
-//向组中添加子组
-- (void)addSubgroup:(CNGroup *)subgroup toGroup:(CNGroup *)group NS_AVAILABLE(10_11, NA);
-//在组中删除子组
-- (void)removeSubgroup:(CNGroup *)subgroup fromGroup:(CNGroup *)group NS_AVAILABLE(10_11, NA);
-//向组中添加成员
-- (void)addMember:(CNContact *)contact toGroup:(CNGroup *)group;
-//向组中移除成员
-- (void)removeMember:(CNContact *)contact fromGroup:(CNGroup *)group;
-
-@end
-</code></pre><blockquote>
-<p>CNSaveRequest的封装使用</p>
-</blockquote>
-<pre><code>/**
- *  在group里删除成员
- *
- *  @param contact 被删除的联系人
- *  @param group   在该group里删除联系人
- */
-- (void)deleteMemberWithContact:(CNContact *)contact toGroup:(CNGroup *)group{
-    CNSaveRequest *saveRequest = [[CNSaveRequest alloc] init];
-    [saveRequest removeMember:contact fromGroup:group];
-    // 写入
-    CNContactStore *store = [[CNContactStore alloc] init];
-    [store executeSaveRequest:saveRequest error:nil];
-
-}
-
-/**
- *  向group添加成员
- *
- *  @param contact 被添加的联系人
- *  @param group   添加到该group
- */
-- (void)addMemberWithContact:(CNContact *)contact toGroup:(CNGroup *)group{
-    CNSaveRequest *saveRequest = [[CNSaveRequest alloc] init];
-    [saveRequest addMember:contact toGroup:group];
-    // 写入
-    CNContactStore *store = [[CNContactStore alloc] init];
-    [store executeSaveRequest:saveRequest error:nil];
-
-}
-
-/**
- *  更新group
- *
- *  @param group 被更新的group
- */
-- (void)updateGroup:(CNMutableGroup *)group{
-    CNSaveRequest *saveRequest = [[CNSaveRequest alloc] init];
-    [saveRequest updateGroup:group];
-    // 写入
-    CNContactStore *store = [[CNContactStore alloc] init];
-    [store executeSaveRequest:saveRequest error:nil];
-}
-
-/**
- *  删除group操作
- *
- *  @param group 被删除的group
- */
-- (void)deleteWithGroup:(CNMutableGroup *)group{
-    CNSaveRequest *saveRequest = [[CNSaveRequest alloc] init];
-    [saveRequest deleteGroup:group];
-    // 写入
-    CNContactStore *store = [[CNContactStore alloc] init];
-    [store executeSaveRequest:saveRequest error:nil];
-}
-
-/**
- *  查询
- *
- *  @return 返回数组
- */
-- (NSArray *)queryGroup{
-    CNContactStore *store = [[CNContactStore alloc] init];
-    // 查询所有的group(predicate参数为空时会查询所有的group)
-    NSArray *arr = [store groupsMatchingPredicate:nil error:nil];
-    return arr;
-}
-
-/**
- *  添加群组
- *
- *  @param name 群组的名称
- */
-- (void)addGroupWithName:(NSString *)name{
-    CNMutableGroup *group = [[CNMutableGroup alloc] init];
-    group.name = name;
-    CNSaveRequest *saveRequest = [[CNSaveRequest alloc] init];
-    [saveRequest addGroup:group toContainerWithIdentifier:nil];
-    // 写入
-    CNContactStore *store = [[CNContactStore alloc] init];
-    [store executeSaveRequest:saveRequest error:nil];
-}
-
-/**
- *  查询操作
- *
- *  @return 返回数组
- */
-- (NSArray *)queryContactWithName:(NSString *)name{
-    CNContactStore *store = [[CNContactStore alloc] init];
-    // 检索条件
-    NSPredicate *predicate = [CNContact predicateForContactsMatchingName:name];
-    // 提取数据 （keysToFetch:@[CNContactGivenNameKey]是设置提取联系人的哪些数据）
-    NSArray *contact = [store unifiedContactsMatchingPredicate:predicate keysToFetch:@[CNContactGivenNameKey] error:nil];
-    return contact;
-}
-
-/**
- *  更新联系人
- *
- *  @param contact 被更新的联系人
- */
-- (void)updateContact:(CNMutableContact *)contact{
-// 创建联系人请求
-    CNSaveRequest *saveRequest = [[CNSaveRequest alloc] init];
-    [saveRequest updateContact:contact];
-    // 重新写入
-    CNContactStore *store = [[CNContactStore alloc] init];
-    [store executeSaveRequest:saveRequest error:nil];
-
-}
-
-/**
- *  删除联系人
- *
- *  @param contact 被删除的联系人
- */
-- (void)deleteContact:(CNMutableContact *)contact{
-    // 创建联系人请求
-    CNSaveRequest *saveRequest = [[CNSaveRequest alloc] init];
-    [saveRequest deleteContact:contact];
-    // 写入操作
-    CNContactStore *store = [[CNContactStore alloc] init];
-    [store executeSaveRequest:saveRequest error:nil];
-
-}
-
-/**
- *  添加联系人
- *
- *  @param contact 联系人
- */
-- (void)addContact:(CNMutableContact *)contact{
-    // 创建联系人请求
-    CNSaveRequest *saveRequest = [[CNSaveRequest alloc] init];
-    [saveRequest addContact:contact toContainerWithIdentifier:nil];
-    // 写入联系人
-    CNContactStore *store = [[CNContactStore alloc] init];
-    [store executeSaveRequest:saveRequest error:nil];
-}
-</code></pre><blockquote>
-<p>实际工程中的操作使用</p>
-</blockquote>
-<pre><code>- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a ni
-    CNMutableContact *contact = [self initializeContact];    
-    //添加联系人
-    [self addContact:contact];
-    //查询
-    NSArray *arr = [self queryContactWithName:@&quot;伟君&quot;];
-    //将不可变的CNContact转成CNMutableContact，便可执行以下操作
-    CNMutableContact *contact = [arr[0] mutableCopy];
-    //更新
-    contact.givenName = @&quot;大力&quot;;
-    [self updateContact:contact];
-    //删除
-    [self deleteContact:contact];
-
-    //添加群组
-    [self addGroupWithName:@&quot;Yudo&quot;];
-    //返回所有数组
-    NSArray *array = [self queryGroup];
-    NSLog(@&quot;==%@&quot;,array);
-    //删除group操作
-    CNMutableGroup *group = [array[2] mutableCopy];
-    [self deleteWithGroup:group];
-
-    //更新group
-    CNMutableGroup *group = [array[2] mutableCopy];
-    group.name = @&quot;Yudo&quot;;
-    [self updateGroup:group];
-
-    //向group添加成员
-    NSArray *results = [self queryContactWithName:@&quot;伟君&quot;];
-    for (int i=0; i&lt;array.count; i++) {
-        CNGroup *group=array[i];
-        if ([group.name isEqualToString:@&quot;Yudo&quot;]) {
-            [self addMemberWithContact:results[0] toGroup:group];
-        }
-    }
-
-
-    //在group里删除成员
-    NSArray *results = [self queryContactWithName:@&quot;baba zhang&quot;];
-    for (int i=0; i&lt;array.count; i++) {
-        CNGroup *group=array[i];
-        if ([group.name isEqualToString:@&quot;Yudo&quot;]) {
-            [self deleteMemberWithContact:results[0] toGroup:group];
-        }
-    }
-}
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1996,7 +1762,7 @@ unreachable blob 72663d3adcf67548b9e0f0b2eeef62bce3d53e03
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-count">15</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2004,7 +1770,7 @@ unreachable blob 72663d3adcf67548b9e0f0b2eeef62bce3d53e03
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2013,7 +1779,7 @@ unreachable blob 72663d3adcf67548b9e0f0b2eeef62bce3d53e03
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
