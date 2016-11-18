@@ -105,7 +105,7 @@ from flask import Flask, request, render_">
 
 from flask import Flask, request, render_">
 <meta property="og:image" content="https://raw.githubusercontent.com/yuppieboy/yuppieboy.github.io/master/images/flask_logo.png">
-<meta property="og:updated_time" content="2016-11-14T07:55:18.000Z">
+<meta property="og:updated_time" content="2016-11-18T05:03:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用python编写简单的登陆API">
 <meta name="twitter:description" content="框架Flask是一个使用 Python 编写的轻量级 Web 应用框架。其 WSGI 工具箱采用 Werkzeug ，模板引擎则使用 Jinja2 。
@@ -412,15 +412,15 @@ def valid_login(username,password):
     conn.close()
 
     return len(resp)
-</code></pre><h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>本地部署：</p>
-<p>cd到py文件所在目录执行</p>
-<pre><code>$ export FLASK_APP=xxx.py
-$ flask run
-* Running on http://127.0.0.1:5000/
-</code></pre><p>局域网/外部部署</p>
-<pre><code>$ export FLASK_APP=xxx.py
-$ flask run --host=0.0.0.0
-</code></pre><p><code>0.0.0.0</code>改为<code>内网IP</code>/<code>公网IP</code></p>
+
+if __name__ == &apos;__main__&apos;:
+    app.run(host=&quot;127.0.0.1&quot;, port=8080, debug=True)
+</code></pre><h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p><code>pycharm</code>运行xxx.py即可</p>
+<pre><code>* Running on http://127.0.0.1:8080/ (Press CTRL+C to quit)
+* Restarting with stat
+* Debugger is active!
+* Debugger pin code: 273-703-379
+</code></pre><p>Mac默认开启apache服务占用了80端口，所以这边暂时使用8080作为测试端口在本地测试。</p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>用Python写Restful风格的webAPI其实蛮方便，也容易部署，小项目容易上手，本文所写API只为好玩，真实项目要考虑更多的东西，比如加密等等。</p>
 
       
