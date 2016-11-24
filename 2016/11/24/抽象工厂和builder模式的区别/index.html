@@ -99,7 +99,7 @@ Builder模式的类图:
 
 Factory模式一进一出,Builder模式是分步流水线作业。当你需要做一系列有序的工作或者按照一定的逻辑来完成创建一个对象时 Builder就派上用场啦。">
 <meta property="og:image" content="https://raw.githubusercontent.com/yuppieboy/yuppieboy.github.io/master/images/builder_pattern.png">
-<meta property="og:updated_time" content="2016-11-24T09:31:03.000Z">
+<meta property="og:updated_time" content="2016-11-24T09:43:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="抽象工厂和builder模式的区别">
 <meta name="twitter:description" content="在工厂模式里，我们无需关心产品的各部分是如何被创建的，但在Builder模式里，会把产品的创建过程抽象为多个部分。也就是说工厂模式被关注的是整个产品，而Builder模式被关注的是产品的组成部分的创建过程。
@@ -360,7 +360,184 @@ Factory模式一进一出,Builder模式是分步流水线作业。当你需要�
 <p><strong>二、两者所创建的产品类型完全不一样。</strong><br>Factory创建只能是单一的产品(单一在这指它非复合产品),而Builder所创建的产品是复合产品，即产品本身就是由其它部件产品组成的。</p>
 <p>举个例子来说，现在要生产一辆车，假设它就只由这三个部分组成：玻璃、轮子、发动机。<br>对于工厂模式来说，他创建后返回的，只能是玻璃，或者轮子，抑或是发动机。<br>不管怎么样，他不能向客户返回一辆完整的汽车，要得到一辆完整的汽车，客户必须自己动手去把这些零部件组装成一辆汽车。<br>从这个意义上来讲，工厂模式中的工厂，只是充当了零件厂的角色。<br>那Builder又是如何创建产品的呢？在Builder模式中，一般不需要、也不充许向客户返回单个部件，他向客户返回的，仅仅就是一部已经完全组装好的汽车成品。<br>对于汽车部件的生产细节，客户不需要、也不应该让他们知道。</p>
 <p><strong>三、Builder和Factory的差别，还在于他们所生产部件产品所在产品树的问题。</strong><br>这样说，可能有点拗口。具体来说吧，在工厂模式中，我们知道，一个工厂可以创建多个产品，但一个工厂模式中所创建的某个产品，都会和另一个工厂中所创建的产品在同一棵继承树上。<br>Builder可以创建出可以创建出风马不相及的产品(虽然我们不这么做)，但是Factory模式一般是创建一类产品。</p>
+<hr>
+<p>以下贴两端Python的抽象工厂和Builder模式的经典代码:</p>
+<h3 id="抽象工厂"><a href="#抽象工厂" class="headerlink" title="抽象工厂"></a>抽象工厂</h3><pre><code>#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#http://ginstrom.com/scribbles/2007/10/08/design-patterns-python-style/
 
+&quot;&quot;&quot;Implementation of the abstract factory pattern&quot;&quot;&quot;
+
+import random
+
+
+class PetShop:
+
+    &quot;&quot;&quot;A pet shop&quot;&quot;&quot;
+
+    def __init__(self, animal_factory=None):
+        &quot;&quot;&quot;pet_factory is our abstract factory.  We can set it at will.&quot;&quot;&quot;
+
+        self.pet_factory = animal_factory
+
+    def show_pet(self):
+        &quot;&quot;&quot;Creates and shows a pet using the abstract factory&quot;&quot;&quot;
+
+        pet = self.pet_factory.get_pet()
+        print(&quot;We have a lovely {}&quot;.format(pet))
+        print(&quot;It says {}&quot;.format(pet.speak()))
+        print(&quot;We also have {}&quot;.format(self.pet_factory.get_food()))
+
+
+# Stuff that our factory makes
+
+class Dog:
+
+    def speak(self):
+        return &quot;woof&quot;
+
+    def __str__(self):
+        return &quot;Dog&quot;
+
+
+class Cat:
+
+    def speak(self):
+        return &quot;meow&quot;
+
+    def __str__(self):
+        return &quot;Cat&quot;
+
+
+# Factory classes
+
+class DogFactory:
+
+    def get_pet(self):
+        return Dog()
+
+    def get_food(self):
+        return &quot;dog food&quot;
+
+
+class CatFactory:
+
+    def get_pet(self):
+        return Cat()
+
+    def get_food(self):
+        return &quot;cat food&quot;
+
+
+# Create the proper family
+def get_factory():
+    &quot;&quot;&quot;Let&apos;s be dynamic!&quot;&quot;&quot;
+    return random.choice([DogFactory, CatFactory])()
+
+
+# Show pets with various factories
+if __name__ == &quot;__main__&quot;:
+    for i in range(3):
+        shop = PetShop(get_factory())
+        shop.show_pet()
+        print(&quot;=&quot; * 20)
+
+### OUTPUT ###
+# We have a lovely Dog
+# It says woof
+# We also have dog food
+# ====================
+# We have a lovely Dog
+# It says woof
+# We also have dog food
+# ====================
+# We have a lovely Cat
+# It says meow
+# We also have cat food
+# ====================
+</code></pre><h3 id="Builder模式"><a href="#Builder模式" class="headerlink" title="Builder模式"></a>Builder模式</h3><pre><code>#!/usr/bin/python
+# -*- coding : utf-8 -*-
+
+&quot;&quot;&quot;
+@author: Diogenes Augusto Fernandes Herminio &lt;diofeher@gmail.com&gt;https://gist.github.com/420905#file_builder_python.py
+&quot;&quot;&quot;
+
+# Director
+class Director(object):
+
+    def __init__(self):
+        self.builder = None
+
+    def construct_building(self):
+        self.builder.new_building()
+        self.builder.build_floor()
+        self.builder.build_size()
+
+    def get_building(self):
+        return self.builder.building
+
+
+# Abstract Builder
+class Builder(object):
+
+    def __init__(self):
+        self.building = None
+
+    def new_building(self):
+        self.building = Building()
+
+    def build_floor(self):
+        raise NotImplementedError
+
+    def build_size(self):
+        raise NotImplementedError
+
+# Concrete Builder
+class BuilderHouse(Builder):
+
+    def build_floor(self):
+        self.building.floor = &apos;One&apos;
+
+    def build_size(self):
+        self.building.size = &apos;Big&apos;
+
+
+class BuilderFlat(Builder):
+
+    def build_floor(self):
+        self.building.floor = &apos;More than One&apos;
+
+    def build_size(self):
+        self.building.size = &apos;Small&apos;
+
+
+# Product
+class Building(object):
+
+    def __init__(self):
+        self.floor = None
+        self.size = None
+
+    def __repr__(self):
+        return &apos;Floor: {0.floor} | Size: {0.size}&apos;.format(self)
+
+
+# Client
+if __name__ == &quot;__main__&quot;:
+    director = Director()
+    director.builder = BuilderHouse()
+    director.construct_building()
+    building = director.get_building()
+    print(building)
+    director.builder = BuilderFlat()
+    director.construct_building()
+    building = director.get_building()
+    print(building)
+
+### OUTPUT ###
+# Floor: One | Size: Big
+# Floor: More than One | Size: Small
+</code></pre>
       
     </div>
 
@@ -538,7 +715,7 @@ Factory模式一进一出,Builder模式是分步流水线作业。当你需要�
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象工厂"><span class="nav-number">1.</span> <span class="nav-text">抽象工厂</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Builder模式"><span class="nav-number">2.</span> <span class="nav-text">Builder模式</span></a></li></ol></div>
             
           </div>
         </section>
