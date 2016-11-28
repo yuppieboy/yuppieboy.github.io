@@ -96,7 +96,7 @@ def __new__(cls, *args, **kwargs):
 class Singleton(object):
 def __new__(cls, *args, **kwargs):
     if not hasattr(">
-<meta property="og:updated_time" content="2016-11-28T02:38:57.000Z">
+<meta property="og:updated_time" content="2016-11-28T06:24:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python单例的4种实现方法">
 <meta name="twitter:description" content="方法一实现__new__方法并在将一个类的实例绑定到类变量_instance上,如果cls._instance为None说明该类还没有实例化过,实例化该类,并返回如果cls._instance不为None,直接返回cls._instance
@@ -448,7 +448,7 @@ eg:
 print Foo.color
 print Foo.borderWidth
 &quot;&quot;&quot;
-</code></pre><h2 id="方法4"><a href="#方法4" class="headerlink" title="方法4"></a>方法4</h2><p>使用装饰器(<code>decorator</code>),<br>这是一种更<code>pythonic</code>,更elegant的方法,<br>单例类本身根本不知道自己是单例的,因为他本身(自己的代码)并不是单例的  </p>
+</code></pre><h2 id="方法四"><a href="#方法四" class="headerlink" title="方法四"></a>方法四</h2><p>使用装饰器(<code>decorator</code>),<br>这是一种更<code>pythonic</code>,更elegant的方法,<br>单例类本身根本不知道自己是单例的,因为他本身(自己的代码)并不是单例的  </p>
 <pre><code>def singleton(cls, *args, **kw):
     instances = {}
     def _singleton():
@@ -661,7 +661,7 @@ print two.x
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#方法一"><span class="nav-number">1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法二"><span class="nav-number">2.</span> <span class="nav-text">方法二</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法三"><span class="nav-number">3.</span> <span class="nav-text">方法三</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法4"><span class="nav-number">4.</span> <span class="nav-text">方法4</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#方法一"><span class="nav-number">1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法二"><span class="nav-number">2.</span> <span class="nav-text">方法二</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法三"><span class="nav-number">3.</span> <span class="nav-text">方法三</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法四"><span class="nav-number">4.</span> <span class="nav-text">方法四</span></a></li></ol></div>
             
           </div>
         </section>

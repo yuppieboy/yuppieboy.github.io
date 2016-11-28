@@ -445,7 +445,7 @@ eg:
 print Foo.color
 print Foo.borderWidth
 &quot;&quot;&quot;
-</code></pre><h2 id="方法4"><a href="#方法4" class="headerlink" title="方法4"></a>方法4</h2><p>使用装饰器(<code>decorator</code>),<br>这是一种更<code>pythonic</code>,更elegant的方法,<br>单例类本身根本不知道自己是单例的,因为他本身(自己的代码)并不是单例的  </p>
+</code></pre><h2 id="方法四"><a href="#方法四" class="headerlink" title="方法四"></a>方法四</h2><p>使用装饰器(<code>decorator</code>),<br>这是一种更<code>pythonic</code>,更elegant的方法,<br>单例类本身根本不知道自己是单例的,因为他本身(自己的代码)并不是单例的  </p>
 <pre><code>def singleton(cls, *args, **kw):
     instances = {}
     def _singleton():
