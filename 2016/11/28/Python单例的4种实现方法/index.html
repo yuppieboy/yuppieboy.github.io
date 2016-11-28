@@ -96,7 +96,7 @@ def __new__(cls, *args, **kwargs):
 class Singleton(object):
 def __new__(cls, *args, **kwargs):
     if not hasattr(">
-<meta property="og:updated_time" content="2016-11-28T02:34:44.000Z">
+<meta property="og:updated_time" content="2016-11-28T02:38:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python单例的4种实现方法">
 <meta name="twitter:description" content="方法一实现__new__方法并在将一个类的实例绑定到类变量_instance上,如果cls._instance为None说明该类还没有实例化过,实例化该类,并返回如果cls._instance不为None,直接返回cls._instance
@@ -422,15 +422,15 @@ def __new__(cls, *args, **kwargs):
     return super(Basic, cls).__new__(cls, *args, **kwargs)
 
 class Foo:
-__metaclass__ = Basic
+    __metaclass__ = Basic
 
-Foo.color = &apos;red&apos;
-Foo.borderWidth = 1
+    Foo.color = &apos;red&apos;
+    Foo.borderWidth = 1
 
 class rect:
-def __init__(self, color, borderWidth):
-    self.color = color
-    self.borderWidth = borderWidth
+    def __init__(self, color, borderWidth):
+        self.color = color
+        self.borderWidth = borderWidth
 
 
 if __name__ == &apos;__main__&apos;:
@@ -452,19 +452,17 @@ print Foo.borderWidth
 <pre><code>def singleton(cls, *args, **kw):
     instances = {}
     def _singleton():
-if cls not in instances:
-    instances[cls] = cls(*args, **kw)
-return instances[cls]
-
-return _singleton
+    if cls not in instances:
+        instances[cls] = cls(*args, **kw)
+        return instances[cls]
+    return _singleton
 
 @singleton
 class MyClass(object):
-a = 1
+    a = 1
 
 def __init__(self, x=0):
     self.x = x
-
 
 one = MyClass()
 two = MyClass()

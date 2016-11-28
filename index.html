@@ -419,15 +419,15 @@ def __new__(cls, *args, **kwargs):
     return super(Basic, cls).__new__(cls, *args, **kwargs)
 
 class Foo:
-__metaclass__ = Basic
+    __metaclass__ = Basic
 
-Foo.color = &apos;red&apos;
-Foo.borderWidth = 1
+    Foo.color = &apos;red&apos;
+    Foo.borderWidth = 1
 
 class rect:
-def __init__(self, color, borderWidth):
-    self.color = color
-    self.borderWidth = borderWidth
+    def __init__(self, color, borderWidth):
+        self.color = color
+        self.borderWidth = borderWidth
 
 
 if __name__ == &apos;__main__&apos;:
@@ -449,19 +449,17 @@ print Foo.borderWidth
 <pre><code>def singleton(cls, *args, **kw):
     instances = {}
     def _singleton():
-if cls not in instances:
-    instances[cls] = cls(*args, **kw)
-return instances[cls]
-
-return _singleton
+    if cls not in instances:
+        instances[cls] = cls(*args, **kw)
+        return instances[cls]
+    return _singleton
 
 @singleton
 class MyClass(object):
-a = 1
+    a = 1
 
 def __init__(self, x=0):
     self.x = x
-
 
 one = MyClass()
 two = MyClass()
