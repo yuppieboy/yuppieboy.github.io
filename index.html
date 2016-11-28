@@ -272,6 +272,168 @@
             
               
                 
+                <a class="post-title-link" href="/2016/11/28/Pool-Python多进程管理/" itemprop="url">
+                  Pool - Python多进程管理
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-28T17:20:48+08:00" content="2016-11-28">
+              2016-11-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/28/Pool-Python多进程管理/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/11/28/Pool-Python多进程管理/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>在Python中多进程管理使用Pool,可以设定最大进程数n，一次执行n个任务，当有一个进程完成后会有新的进程被添加进Pool。</strong></p>
+<p><strong>示例代码：</strong></p>
+<pre><code>import multiprocessing
+import os, time, random
+
+def Lee():
+    print &quot;Run task Lee - %s&quot; % (os.getpid())  # os.getpid()获取当前的进程的ID
+    start=time.time()
+    time.sleep(random.random()*10)  # random.random()随机生成0-1之间的小数
+    end=time.time()
+    print &apos;Task Lee, runs %0.2f seconds.&apos; %(end - start)
+
+def Marlon():
+    print &quot;Run task Marlon - %s&quot; % (os.getpid())
+    start = time.time()
+    time.sleep(random.random()*40)
+    end = time.time()
+    print &apos;Task Marlon runs %0.2f seconds.&apos; % (end - start)
+
+def Allen():
+    print &quot;Run task Allen - %s&quot; % (os.getpid())
+    start = time.time()
+    time.sleep(random.random()*30)
+    end = time.time()
+    print &apos;Task Allen runs %0.2f seconds.&apos; % (end - start)
+
+def Frank():
+    print &quot;Run task Frank - %s&quot; % (os.getpid())
+    start = time.time()
+    time.sleep(random.random()*20)
+    end = time.time()
+    print &apos;Task Frank runs %0.2f seconds.&apos; % (end - start)
+
+if __name__ == &apos;__main__&apos;:
+    function_list = [Lee, Marlon, Allen, Frank]
+    print &quot;parent process %s&quot; % (os.getpid())
+    pool = multiprocessing.Pool(2)
+    for func in function_list:
+        pool.apply_async(func)  # Pool执行函数，apply执行函数,当有一个进程执行完毕后，会添加一个新的进程到pool中
+    print &apos;Waiting for all subprocesses done...&apos;
+    pool.close()
+    pool.join()  # 调用join之前，一定要先调用close() 函数，否则会出错, close()执行后不会有新的进程加入到pool,join函数等待素有子进程结束
+    print &apos;All subprocesses done.&apos;
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/11/28/Python单例的4种实现方法/" itemprop="url">
                   Python单例的4种实现方法
                 </a>
@@ -1970,130 +2132,6 @@ with open(&apos;data.csv&apos;, &apos;w&apos;) as f:
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/19/objective-c的工程内使用swift类/" itemprop="url">
-                  objective-c的工程内使用swift类
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-19T12:46:39+08:00" content="2016-09-19">
-              2016-09-19
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/19/objective-c的工程内使用swift类/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/09/19/objective-c的工程内使用swift类/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>主要步骤：添加<code>swift</code>桥接,修改项目配置项。</p>
-<p>具体步骤如下图：</p>
-<div align="center"><br><img src="https://raw.githubusercontent.com/yuppieboy/yuppieboy.github.io/master/images/371B1FB6-FAF5-4FED-B512-0E4A4946EDF7.png" width="100%"><br></div>
-
-<p><a href="http://stackoverflow.com/questions/24206732/cant-use-swift-classes-inside-objective-c/27251979#27251979" target="_blank" rel="external">stackoverflow链接</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2139,7 +2177,7 @@ with open(&apos;data.csv&apos;, &apos;w&apos;) as f:
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-count">20</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2156,7 +2194,7 @@ with open(&apos;data.csv&apos;, &apos;w&apos;) as f:
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
