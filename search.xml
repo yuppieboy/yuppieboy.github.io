@@ -3,6 +3,13 @@
   
     
     <entry>
+      <title><![CDATA[ios10相册等隐私权限设置]]></title>
+      <url>%2F2016%2F12%2F20%2Fios10%E7%9B%B8%E5%86%8C%E7%AD%89%E9%9A%90%E7%A7%81%E6%9D%83%E9%99%90%E8%AE%BE%E7%BD%AE%2F</url>
+      <content type="text"><![CDATA[崩溃日志示例： This app has crashed because it attempted to access privacy-sensitive data without a usage description. The app’s Info.plist must contain an NSCameraUsageDescription key with a string value explaining to the user how the app uses this data. 升到iOS10之后，需要在info.plist设置权限的有： 麦克风权限：Privacy - Microphone Usage Description 是否允许此App使用你的麦克风？ 相机权限： Privacy - Camera Usage Description 是否允许此App使用你的相机？ 相册权限： Privacy - Photo Library Usage Description 是否允许此App访问你的媒体资料库？ 通讯录权限： Privacy - Contacts Usage Description 是否允许此App访问你的通讯录？ 蓝牙权限：Privacy - Bluetooth Peripheral Usage Description 是否许允此App使用蓝牙？ 语音转文字权限：Privacy - Speech Recognition Usage Description 是否允许此App使用语音识别？ 日历权限：Privacy - Calendars Usage Description 定位权限：Privacy - Location When In Use Usage Description 定位权限: Privacy - Location Always Usage Description 位置权限：Privacy - Location Usage Description 媒体库权限：Privacy - Media Library Usage Description 健康分享权限：Privacy - Health Share Usage Description 健康更新权限：Privacy - Health Update Usage Description 运动使用权限：Privacy - Motion Usage Description 音乐权限：Privacy - Music Usage Description 提醒使用权限：Privacy - Reminders Usage Description Siri使用权限：Privacy - Siri Usage Description 电视供应商使用权限：Privacy - TV Provider Usage Description 视频用户账号使用权限：Privacy - Video Subscriber Account Usage Description]]></content>
+    </entry>
+
+    
+    <entry>
       <title><![CDATA[利用Python给图片打马赛克]]></title>
       <url>%2F2016%2F12%2F02%2F%E5%88%A9%E7%94%A8Python%E7%BB%99%E5%9B%BE%E7%89%87%E6%89%93%E9%A9%AC%E8%B5%9B%E5%85%8B%2F</url>
       <content type="text"><![CDATA[思路利用PIL(Python Image Library)获取图片相应点位的像素值，然后以这些像素为基础重新绘制一张新图。 实现#!/Library/anaconda/bin/python # -*- coding: utf-8 -*- # 实现功能: 给图片打马赛克 from PIL import Image, ImageDraw, ImageFont import sys width = 600 height = 600 granularity = 25 # 颗粒度 image = Image.new(&apos;RGB&apos;, (width, height), (255, 255, 255)) # 创建Font对象: font = ImageFont.truetype(&apos;Arial.ttf&apos;, 36) # 创建Draw对象: draw = ImageDraw.Draw(image) # image_name = raw_input(&apos;Entering Input ImageName: &apos;) image_name = sys.argv[1] image_file = Image.open(image_name) image_file = image_file.resize((width, height)) # 调整图片大小 def to_mosaic(file_name): for x in range(0, width, granularity): for y in range(0, height, granularity): r, g, b = file_name.getpixel((x, y)) draw.rectangle([(x, y), (x + granularity, y + granularity)], fill=(r, g, b), outline=None) # None即是不加网格 to_mosaic(image_file) image.save(&apos;Mosaic.jpg&apos;, &apos;jpeg&apos;) 效果图]]></content>
