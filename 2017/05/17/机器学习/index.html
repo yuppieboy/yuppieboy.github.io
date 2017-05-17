@@ -90,14 +90,16 @@
 <meta property="og:url" content="http://yoursite.com/2017/05/17/机器学习/index.html">
 <meta property="og:site_name" content="WJ's Den">
 <meta property="og:description" content="什么是机器学习?Two definitions of Machine Learning are offered. Arthur Samuel described it as: “the field of study that gives computers the ability to learn without being explicitly programmed.” This is an o">
+<meta property="og:image" content="https://raw.githubusercontent.com/yuppieboy/yuppieboy.github.io/master/images/cost_function0.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yuppieboy/yuppieboy.github.io/master/images/cost_function4.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/yuppieboy/yuppieboy.github.io/master/images/cost_function1.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/yuppieboy/yuppieboy.github.io/master/images/cost_function2.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/yuppieboy/yuppieboy.github.io/master/images/cost_function3.png">
-<meta property="og:updated_time" content="2017-05-17T09:05:18.000Z">
+<meta property="og:updated_time" content="2017-05-17T09:19:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习">
 <meta name="twitter:description" content="什么是机器学习?Two definitions of Machine Learning are offered. Arthur Samuel described it as: “the field of study that gives computers the ability to learn without being explicitly programmed.” This is an o">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/yuppieboy/yuppieboy.github.io/master/images/cost_function1.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/yuppieboy/yuppieboy.github.io/master/images/cost_function0.png">
 
 
 
@@ -362,7 +364,13 @@
 <p><strong>Example:</strong></p>
 <p><code>聚类</code>：收集100万个不同的基因，并找到一种自动将这些基因组合成不同变量（如生命周期，位置，作用等）相似或相关的组。</p>
 <p><code>非聚类</code>：“鸡尾酒会算法”，让您在混乱的环境中找到结构。 （即，从鸡尾酒会的声音网格中识别个体声音和音乐）。</p>
-<h3 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h3><p>轮廓图是包含许多轮廓线的图形。两个可变函数的轮廓线在同一行的所有点都具有一个恒定值。这样的图表的例子是下面的图。</p>
+<h3 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h3><p>我们可以使用代价函数来衡量我们的假设函数的准确性。这取决于x的输入和实际输出y的假设的所有结果的平均差异（实际上是平均值的平均值）。</p>
+<div align="center"><br><img src="https://raw.githubusercontent.com/yuppieboy/yuppieboy.github.io/master/images/cost_function0.png" width="60%"><br></div>
+
+<p>此功能也称为“平方误差函数”或“均方误差”。平均值减半（12）作为计算梯度下降的便利，因为平方函数的导数项将抵消12项。以下图片总结了成本函数的作用：</p>
+<div align="center"><br><img src="https://raw.githubusercontent.com/yuppieboy/yuppieboy.github.io/master/images/cost_function4.png" width="100%"><br></div>
+
+<p>轮廓图是包含许多轮廓线的图形。两个可变函数的轮廓线在同一行的所有点都具有一个恒定值。这样的图表的例子是下面的图。</p>
 <div align="center"><br><img src="https://raw.githubusercontent.com/yuppieboy/yuppieboy.github.io/master/images/cost_function1.png" width="100%"><br></div>
 
 <p>采取任何颜色，沿着“圆”走，人们期望得到相同的成本函数值。例如，上面绿线上发现的三个绿点与J（θ0，θ1）具有相同的值，因此它们沿同一行找到。当θ0= 800和θ1= -0.15时，圆圈x显示左侧图形的成本函数值。再取另一个h（x）并绘制其轮廓图，得到以下图形：</p>
