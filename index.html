@@ -364,6 +364,17 @@
 <p><strong>Example:</strong></p>
 <p><code>聚类</code>：收集100万个不同的基因，并找到一种自动将这些基因组合成不同变量（如生命周期，位置，作用等）相似或相关的组。</p>
 <p><code>非聚类</code>：“鸡尾酒会算法”，让您在混乱的环境中找到结构。 （即，从鸡尾酒会的声音网格中识别个体声音和音乐）。</p>
+<h3 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h3><p>轮廓图是包含许多轮廓线的图形。两个可变函数的轮廓线在同一行的所有点都具有一个恒定值。这样的图表的例子是下面的图。</p>
+<div align="center"><br><img src="https://raw.githubusercontent.com/yuppieboy/yuppieboy.github.io/master/images/cost_function1.png" width="100%"><br></div>
+
+<p>采取任何颜色，沿着“圆”走，人们期望得到相同的成本函数值。例如，上面绿线上发现的三个绿点与J（θ0，θ1）具有相同的值，因此它们沿同一行找到。当θ0= 800和θ1= -0.15时，圆圈x显示左侧图形的成本函数值。再取另一个h（x）并绘制其轮廓图，得到以下图形：</p>
+<div align="center"><br><img src="https://raw.githubusercontent.com/yuppieboy/yuppieboy.github.io/master/images/cost_function2.png" width="100%"><br></div>
+
+
+<p>当θ0= 360和θ1= 0时，轮廓图中J（θ0，θ1）的值越接近中心，从而降低成本函数误差。现在给出我们的假设函数稍微正斜率导致更好的数据拟合。</p>
+<div align="center"><br><img src="https://raw.githubusercontent.com/yuppieboy/yuppieboy.github.io/master/images/cost_function3.png" width="100%"><br></div>
+
+<p>上面的图表尽可能地最小化了成本函数，因此θ1和θ0的结果分别为0.12和250左右。将图表上的这些值绘制到右边似乎将我们的观点置于内部最“圆”的中心。</p>
 
           
         
