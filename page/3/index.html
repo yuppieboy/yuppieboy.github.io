@@ -272,6 +272,181 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/12/利用CAShaperLayer绘制气泡/" itemprop="url">
+                  利用CAShaperLayer绘制气泡
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-12T13:46:50+08:00" content="2016-07-12">
+              2016-07-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/12/利用CAShaperLayer绘制气泡/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/12/利用CAShaperLayer绘制气泡/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="实现机制"><a href="#实现机制" class="headerlink" title="实现机制"></a>实现机制</h2><p>在每一View的layer层中有一个mask属性，他就是专门来设置该View的遮罩效果的。该mask本身也是一个layer层。我们只需要生成一个自定义的layer，然后覆盖在需要遮罩的View上面即可。问题就归于如何生成入上图所示的不规则图片的Layer。CAShapeLayer可以根据几个点的依次连线，产生一个闭合空间的layer。</p>
+<h2 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h2><p>  实现一个CAShapeLayer的Category。</p>
+<pre><code>+ (instancetype)createMaskLayerWithView : (UIView *)view{
+
+       CGFloat viewWidth = CGRectGetWidth(view.frame);
+       CGFloat viewHeight = CGRectGetHeight(view.frame);
+
+       CGFloat rightSpace = 10;
+       CGFloat topSpace = 10;
+       CGFloat radius = 10;
+
+       CGPoint point1 = CGPointMake(0, radius);
+       CGPoint point2 = CGPointMake(radius, 0);
+       CGPoint point3 = CGPointMake(viewWidth-rightSpace-radius, 0);
+       CGPoint point4 = CGPointMake(viewWidth-rightSpace, topSpace);
+       CGPoint point5 = CGPointMake(viewWidth, topSpace);
+       CGPoint point6 = CGPointMake(viewWidth-rightSpace, topSpace+10);
+       CGPoint point7 = CGPointMake(viewWidth-rightSpace, viewHeight-radius);
+       CGPoint point8 = CGPointMake(viewWidth-rightSpace-radius, viewHeight);
+       CGPoint point9 = CGPointMake(radius, viewHeight);
+       CGPoint point10 = CGPointMake(0, viewHeight-radius);
+
+       UIBezierPath *path = [UIBezierPath bezierPath];
+       [path moveToPoint:point1];
+       [path addArcWithCenter:CGPointMake(radius, radius) radius:radius startAngle:M_PI endAngle:M_PI*1.5 clockwise:YES];
+       [path addLineToPoint:point2];
+       [path addLineToPoint:point3];
+       [path addArcWithCenter:CGPointMake(viewWidth-2*radius, radius) radius:radius startAngle:M_PI*1.5 endAngle:0 clockwise:YES];
+       [path addLineToPoint:point4];
+       [path addLineToPoint:point5];
+       [path addLineToPoint:point6];
+       [path addLineToPoint:point7];
+       [path addArcWithCenter:CGPointMake(viewWidth-2*radius, viewHeight-radius) radius:radius startAngle:0 endAngle:M_PI*0.5 clockwise:YES];
+       [path addLineToPoint:point8];
+       [path addLineToPoint:point9];
+       [path addArcWithCenter:CGPointMake(radius, viewHeight-radius) radius:radius startAngle:M_PI*0.5 endAngle:M_PI clockwise:YES];
+       [path addLineToPoint:point10];
+       [path closePath];
+
+       CAShapeLayer *layer = [CAShapeLayer layer];
+       layer.path = path.CGPath;
+
+       return layer;
+}
+
+       UIView *view = [[UIView alloc] initWithFrame:CGRectMake(40, 50, 200, 40)];
+       view.backgroundColor = [UIColor orangeColor];
+       CAShapeLayer *layer = [CAShapeLayer createMaskLayerWithView:view];
+       view.layer.mask = layer;
+       [self.view addSubview:view];
+</code></pre><h2 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h2><p><code>center</code>：Specifies the center point of the circle (in the current coordinate system) used to define the arc.</p>
+<p><code>radius</code>：Specifies the radius of the circle used to define the arc.</p>
+<p><code>startAngle</code>：    Specifies the starting angle of the arc (measured in radians).</p>
+<p><code>endAngle</code>：Specifies the end angle of the arc (measured in raians).</p>
+<p><code>clockwise</code>：The direction in which to draw the arc.</p>
+<div align="center"><br><img src="https://raw.githubusercontent.com/yuppieboy/yuppieboy.github.io/master/images/angle.png" width="30%"><br></div><br>实现效果如下图：<br><br><div align="center"><br><img src="https://raw.githubusercontent.com/yuppieboy/yuppieboy.github.io/master/images/Bubble.png" width="30%"><br></div>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/08/iOS大文件下载遇上nginx反向代理/" itemprop="url">
                   iOS大文件下载遇上nginx反向代理
                 </a>
@@ -670,7 +845,7 @@ proxy_cache cache_one;
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-count">24</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -678,7 +853,7 @@ proxy_cache cache_one;
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
